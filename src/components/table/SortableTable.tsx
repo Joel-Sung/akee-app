@@ -1,46 +1,12 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
 import { ChangeEvent, Key, MouseEvent, useState } from "react";
+import { getComparator, Order, stableSort } from "../../utils/array";
+import { paddingSection } from "../../utils/format";
 
 export interface HeadCell {
   id: string;
   label: string;
-}
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T | undefined) {
-  if (orderBy === undefined) return 0;
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-type Order = 'asc' | 'desc';
-
-function getComparator(order: Order, orderBy: Key | undefined): (
-  a: { [key in Key]: number | string }, 
-  b: { [key in Key]: number | string },
-) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
 }
 
 interface EnhancedTableProps {
@@ -134,14 +100,10 @@ export default function SortableTable(props: SortableTableProps) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box padding={paddingSection} sx={{ width: '100%' }} >
+      <Paper sx={{ width: '100%' }}>
         <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size='medium'
-          >
+          <Table>
             <EnhancedTableHead
               headCells={headCells}
               order={order}

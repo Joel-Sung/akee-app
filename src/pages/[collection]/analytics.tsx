@@ -1,9 +1,10 @@
+import { Stack } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import PriceAndSalesChart from "../../components/chart/PriceAndSalesChart";
+import MktCapAndVolChart from "../../components/chart/MktCapAndVolChart";
 import CollectionLayout from "../../components/layout/CollectionLayout";
 
-export default function CollectionPage() {
+export default function ProTrade() {
   const [cid, setCid] = useState('');
 
   const router = useRouter();
@@ -15,14 +16,15 @@ export default function CollectionPage() {
 
   return (
     <CollectionLayout
-      currLink="overview"
+      currLink="analytics"
       cid={cid}
     >
       {cid !== '' &&
-        <PriceAndSalesChart
-          cid={cid}
-          initialRange='7d'
-        />
+        <Stack>
+          <MktCapAndVolChart
+            cid={cid}
+          />
+        </Stack>
       }
     </CollectionLayout>
   )

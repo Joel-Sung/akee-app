@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getCollectionRanking } from '../../api/collectionCalls';
+import { getCollectionRanking } from '../../api/collection/homeCalls';
 import SortableTable, { HeadCell } from './SortableTable';
 
 const headCells: HeadCell[] = [

@@ -1,9 +1,12 @@
 import { Stack } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import FloorPriceChart from "../../components/chart/FloorPriceChart";
 import ListingAndSalesRatioChart from "../../components/chart/ListingAndSalesRatioChart";
-import CollectionNavBar from "../../components/layout/CollectionNavBar";
-import Title from "../../components/layout/Title";
+import TradesChart from "../../components/chart/TradesChart";
+import CollectionLayout from "../../components/layout/CollectionLayout";
+import CollectionListingsList from "../../components/list/CollectionListingsList";
+import SalesListingsList from "../../components/list/SalesListingsList";
 
 export default function ProTrade() {
   const [cid, setCid] = useState('');
@@ -12,27 +15,37 @@ export default function ProTrade() {
 
   useEffect(()=> {
     if(!router.isReady) return;
-    setCid(router.query.collection);
+    setCid(router.query.collection as string);
   }, [router.isReady]);
 
   return (
-    <Title>
-      <CollectionNavBar
-        currLink="protrade"
-        cid={cid}
-      >
-        {cid !== '' &&
-          <Stack direction='row'>
-            <Stack direction='row'>
+    <CollectionLayout
+      currLink="protrade"
+      cid={cid}
+    >
+      {cid !== '' &&
+        <Stack direction='row' justifyContent='space-between'>
+          <CollectionListingsList
+              cid={cid}
+            />
+          
+          <SalesListingsList 
+              cid={cid}
+            />
 
-            </Stack>
-
-            <Stack>
-              <ListingAndSalesRatioChart />
-            </Stack>
+          <Stack flexBasis='50%' spacing={2}>
+            <ListingAndSalesRatioChart 
+              cid={cid}
+            />
+            <TradesChart
+              cid={cid}
+            />
+            <FloorPriceChart
+              cid={cid}
+            />
           </Stack>
-        }
-      </CollectionNavBar>
-    </Title>
+        </Stack>
+      }
+    </CollectionLayout>
   )
 }

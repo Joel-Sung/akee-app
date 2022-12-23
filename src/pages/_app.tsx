@@ -1,5 +1,5 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CategoryScale, Chart, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js';
+import { createTheme, ThemeProvider } from '@mui/material';
+import { BarElement, CategoryScale, Chart, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js';
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
@@ -13,6 +13,7 @@ import "../styles/globals.css";
 const theme = createTheme(
   {
     palette: {
+      mode: 'dark',
       primary: {
         light: deepPurple[700],
         main: deepPurple[500],
@@ -27,7 +28,7 @@ const theme = createTheme(
   }
 );
 
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Title, Tooltip, Legend);
+Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Title, Tooltip, Legend, BarElement);
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

@@ -1,10 +1,10 @@
-import Title from '../components/layout/Title';
+import TitleLayout from '../components/layout/TitleLayout';
 import CollectionRankingTable from '../components/table/CollectionRankingTable';
 
 export default function HomePage({ }) {
   return (
-    <Title>
-        <CollectionRankingTable />
-    </Title>
+    <TitleLayout currLink={'top'}>
+      <CollectionRankingTable />
+    </TitleLayout>
   );
 };
