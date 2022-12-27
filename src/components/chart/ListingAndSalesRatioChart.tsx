@@ -1,8 +1,8 @@
-import { MenuItem, Paper, Select, SelectChangeEvent, Stack, Typography } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
+import { LinearProgress, MenuItem, Select, SelectChangeEvent, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getListingAndSalesRatio } from "../../api/collection/protradeCalls";
 import { TimeRange } from "../../types/collectionTypes/collectionTypes";
+import { ComponentBar, ComponentContainer, ComponentHeader } from "../container/ComponentContainer";
 
 interface RangeDropDownProps {
   currTimeRange: TimeRange;
@@ -35,7 +35,7 @@ interface ListingAndSalesRatioChartProps {
 export default function ListingAndSalesRatioChart(props: ListingAndSalesRatioChartProps) {
   const {
     cid,
-    defaultTimeRange = '1h'
+    defaultTimeRange = '1h',
   } = props;
 
   const [timeRange, setTimeRange] = useState<TimeRange>(defaultTimeRange);
@@ -59,34 +59,27 @@ export default function ListingAndSalesRatioChart(props: ListingAndSalesRatioCha
   }
 
   return (
-    <Paper
-      elevation={3}
-      sx={{padding: 3}}
-    >
-      <Stack spacing={3}>
-        <Stack direction='row' justifyContent='space-between'>
-          <Stack>
-            <Typography variant='h6'>Listing & Sales Ratio</Typography>
-            {listedSaleRatio != null &&
-              <Typography variant='subtitle2'>{(listedSaleRatio * 100).toFixed(2)}%</Typography>
-            } 
-          </Stack>
-          <RangeDropDown currTimeRange={timeRange} handleChange={onRangeChange}/>
-        </Stack>
-        
-        {listedSaleRatio != null &&
+    <ComponentContainer>
+      <ComponentHeader>
+        <Typography variant='h4'>Listing & Sales Ratio</Typography>
+        <RangeDropDown currTimeRange={timeRange} handleChange={onRangeChange}/>
+      </ComponentHeader>
+
+      {listedSaleRatio != null &&
+        <ComponentBar>
+          <Typography variant='subtitle2'>{(listedSaleRatio * 100).toFixed(2)}%</Typography>
           <LinearProgress
             variant="determinate"
             value={listedSaleRatio * 100}
             sx={{ height: 10 }}
           />
-        }
+          <Stack direction='row' justifyContent='space-between'>
+            <Typography>{delistedCount} New Listings</Typography>
+            <Typography>{salesCount} Sales</Typography>
+          </Stack>
+        </ComponentBar>
+      }
 
-        <Stack direction='row' justifyContent='space-between'>
-          <Typography>{delistedCount} New Listings</Typography>
-          <Typography>{salesCount} Sales</Typography>
-        </Stack>
-      </Stack>
-    </Paper>
+    </ComponentContainer>
   )
 }

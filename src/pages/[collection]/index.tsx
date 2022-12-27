@@ -19,10 +19,7 @@ export default function CollectionPage() {
       cid={cid}
     >
       {cid !== '' &&
-        <PriceAndSalesChart
-          cid={cid}
-          initialRange='7d'
-        />
+        <PriceAndSalesChart cid={cid} />
       }
     </CollectionLayout>
   )

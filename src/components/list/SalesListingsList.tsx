@@ -1,9 +1,10 @@
-import { List, ListItem, Paper, Stack, Typography } from "@mui/material";
+import { ListItem, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getSales } from "../../api/collection/protradeCalls";
 import { Sale } from "../../types/collectionTypes/protradeTypes";
 import { Order, sortObjectsByKey } from "../../utils/array";
 import { getCurrentDate, getDiffIn24HrString, milliSecondsToDate } from "../../utils/datetime";
+import { ComponentContainer, ComponentHeader, ComponentList } from "../container/ComponentContainer";
 import { DropDown } from "../util/DropDown";
 import { ETHSymbol } from "../util/Symbols";
 
@@ -52,11 +53,13 @@ const dropDownOptions = [
 interface SalesListingsListProps {
   cid:string;
   defaultSortBy?: keyof Sale;
+  listHeight: number;
 }
 export default function SalesListingsList(props: SalesListingsListProps) {
   const {
     cid,
-    defaultSortBy = 'timestamp'
+    defaultSortBy = 'timestamp',
+    listHeight
   } = props;
 
   const [order, setOrder] = useState<Order>('desc');
@@ -73,12 +76,9 @@ export default function SalesListingsList(props: SalesListingsListProps) {
   }, [order, sortBy]);
 
   return (
-    <Paper
-      elevation={3}
-      sx={{padding: 3}}
-    >
-      <Stack spacing={3}>
-        <Stack direction='row' justifyContent='space-between' alignItems='center'>
+    <ComponentContainer>
+
+        <ComponentHeader>
           <Typography variant='h4'>Sales</Typography>
           <DropDown
             currValue={sortBy + ' ' + order}
@@ -89,17 +89,14 @@ export default function SalesListingsList(props: SalesListingsListProps) {
               setOrder(order);
             }}
           />
-        </Stack>
+        </ComponentHeader>
         
-        <List
-          sx={{height: 1130, overflow: 'auto'}}
-        >
+        <ComponentList height={listHeight}>
           {sortObjectsByKey(sales, sortBy, order).map((sale) => 
             {return (<ListingCell sale={sale}/>)})
           }
-        </List>
+        </ComponentList>
 
-      </Stack>
-    </Paper>
+    </ComponentContainer>
   )
 }

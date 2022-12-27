@@ -1,10 +1,12 @@
-import { Paper, Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getTrade } from "../../api/collection/protradeCalls";
 import { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { TradeBin } from "../../types/collectionTypes/protradeTypes";
 import { zipCoords } from "../../utils/array";
-import { printMilliSecondsAsDate } from "../../utils/datetime";
+import { getTimeRangeTickLimit } from "../../utils/chart";
+import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
+import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
 import { DropDown } from "../util/DropDown";
 import { ValueCard } from "../util/ValueCard";
 import TwoGraphChart from "./TwoGraphChart";
@@ -26,30 +28,28 @@ interface TradesChartProps {
 export default function TradesChart(props: TradesChartProps) {
   const {
     cid,
-    initialRange = '24h'
+    initialRange = '24h',
   } = props;
   
   const [chartLabels, setChartLabels] = useState<(string | null)[]>([]);
-  const [g1Data, setG1Data] = useState<any[]>([]);
-  const [g2Data, setG2Data] = useState<any[]>([]);
+  const [priceData, setPriceData] = useState<any[]>([]);
+  const [volData, setVolData] = useState<any[]>([]);
   
   const [normalSales, setNormalSales] = useState<number | null>(null);
   const [whaleSales, setWhaleSales] = useState<number | null>(null);
+
   const [chartRange, setChartRange] = useState<TimeRange>(initialRange);
 
   useEffect(()=> {
     async function fetchData() {
       await getTrade(cid, chartRange).then((responseJSON) => {
-        const scatterX = responseJSON.data.scatterPlotsChart.values.x
+        const scatterX = responseJSON.data.scatterPlotsChart.values.x;
         const scatterY = responseJSON.data.scatterPlotsChart.values.y;
         const scatterCoords = zipCoords(scatterX,scatterY);
+        setPriceData(scatterCoords);
 
-        setChartLabels(responseJSON.data.histogramChart.x.map((x: number | null) => {
-          if (x === null) return null;
-          return printMilliSecondsAsDate(x,chartRange);
-        }));
-        setG1Data(scatterCoords);
-        setG2Data(responseJSON.data.histogramChart.bins.map((bin: TradeBin) => bin.ethVolume));
+        setChartLabels(msArrayToDateTimeStringArray(responseJSON.data.histogramChart.x));
+        setVolData(responseJSON.data.histogramChart.bins.map((bin: TradeBin) => bin.ethVolume));
 
         setNormalSales(responseJSON.data.scatterPlotsChart.meta.stats.normalSalesNum);
         setWhaleSales(responseJSON.data.scatterPlotsChart.meta.stats.whaleSalesNum);
@@ -59,37 +59,44 @@ export default function TradesChart(props: TradesChartProps) {
   }, [chartRange]);
 
   return (
-    <Paper
-      elevation={3}
-      sx={{padding: 5}}
-    >
-      <Stack spacing={3}>
-        <Stack direction='row' justifyContent='space-between'>
+    <ComponentContainer>
+
+        <ComponentHeader>
           <Typography variant='h4'>Trades</Typography>
           <DropDown
             currValue={chartRange}
             menuItems={dropDownOptions}
             handleChange={(value) => setChartRange(value as TimeRange)}
           />
-        </Stack>
+        </ComponentHeader>
 
-        <Stack direction='row' spacing={2}>
+        <ComponentInfo>
           <ValueCard title='Normal Sales' value={normalSales} />
           <ValueCard title='Whale Sales' value={whaleSales} />
-        </Stack>
+        </ComponentInfo>
         
-        <TwoGraphChart
-          chartType="scatter"
-          labels={chartLabels}
-          g1Label="Price"
-          g1Type="scatter"
-          g1Data={g1Data}
-          g2Label="ETH volume"
-          g2Type="bar"
-          g2Data={g2Data}
-          x1Cat="linear"
-        />
-      </Stack>
-    </Paper>
+        <ComponentChart>
+          <TwoGraphChart
+            chartType="scatter"
+            labels={chartLabels}
+
+            g1Label="ETH volume"
+            g1Type="bar"
+            g1Data={volData}
+            x1TickLimit={getTimeRangeTickLimit(chartRange)}
+            x1Callback={(value: any, index: any, values: any) => {
+              return formatDateTimeAxisLabel(chartLabels[index], chartRange);
+            }}
+            y1Show={false}
+
+            g2Label="Price"
+            g2Type="scatter"
+            g2Data={priceData}
+            x2Cat="linear"
+            y2Show={true}
+          />
+        </ComponentChart>
+        
+    </ComponentContainer>
   )
 }

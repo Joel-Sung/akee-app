@@ -1,4 +1,5 @@
-import { Button, Paper, Stack } from "@mui/material";
+import { Paper, Stack } from "@mui/material";
+import { MyButton } from "./Button";
 
 interface BarButtonProps<T> {
   buttonValue: T;
@@ -15,12 +16,12 @@ function BarButton<T>(props: BarButtonProps<T>) {
   } = props;
   
   return (
-    <Button 
-      variant={buttonValue === value ? "outlined" : "text"}
+    <MyButton
       onClick={onClick}
+      isClicked={buttonValue === value}
     >
       {text}
-    </Button>
+    </MyButton>
   )
 }
 

@@ -1,21 +1,9 @@
-import { Link, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { ReactNode } from "react";
-import { paddingSection, spacingComponent, spacingSection } from "../../utils/format";
+import { paddingLarge, spacingLarge, spacingMedium } from "../../utils/format";
+import EmptySpace from "../util/EmptySpace";
+import { MyLink } from "../util/Link";
 import TitleLayout from "./TitleLayout";
-
-interface NavLinkProps {
-  href: string,
-  text: string
-  selected?: boolean
-}
-function NavLink({ href, text, selected }: NavLinkProps) {
-  const linkUnselected = "hover:bg-violet-400 text-white hover:text-black font-bold py-2 px-4 rounded-2xl"
-  const linkSelected = "bg-violet-600 text-black font-bold py-2 px-4 rounded-2xl"
-
-  return (
-    <Link href={href} underline="none" className={selected ? linkSelected : linkUnselected}>{text}</Link>
-  )
-}
 
 interface CollectionNavBarProps {
   children?: ReactNode,
@@ -32,18 +20,19 @@ export default function CollectionLayout(props: CollectionNavBarProps) {
   return (
     <TitleLayout currLink="top">
       <Stack
-        spacing={spacingSection}
-        sx={{ padding: paddingSection}}
+        spacing={spacingLarge}
+        px={paddingLarge}
       >
         <Stack 
           direction="row" 
-          spacing={spacingComponent}
+          spacing={spacingMedium}
         >
-          <NavLink href={"/" + cid} text="Overview" selected={currLink==="overview"} />
-          <NavLink href={"/" + cid + "/protrade"} text="Pro Trade" selected={currLink==="protrade"} />
-          <NavLink href={"/" + cid + "/analytics"} text="Analytics" selected={currLink==="analytics"} />
+          <MyLink href={"/" + cid} isClicked={currLink==="overview"}>Overview</MyLink>
+          <MyLink href={"/" + cid + "/protrade"} isClicked={currLink==="protrade"}>Pro Trade</MyLink>
+          <MyLink href={"/" + cid + "/analytics"} isClicked={currLink==="analytics"}>Analytics</MyLink>
         </Stack>
         <main>{children}</main>
+        <EmptySpace height={200}/>
       </Stack>
     </TitleLayout>
   )

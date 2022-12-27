@@ -45,6 +45,10 @@ export function getDateString(date: Date): string {
   return date.toLocaleString("en-GB", {dateStyle: 'medium'});
 }
 
+export function getDateTimeString(date: Date): string {
+  return date.toLocaleString("en-GB", {dateStyle: 'medium', timeStyle: 'short', hourCycle: 'h23'});
+}
+
 export function getDiffInMilliSeconds(date1: Date, date2: Date): number {
   return date1.getTime() - date2.getTime();
 }
@@ -53,22 +57,18 @@ export function getDiffInMinutes(date1: Date, date2: Date): number {
   return getDiffInMilliSeconds(date1, date2) / 60000;
 }
 
-// milliseconds to hours
 export function getDiffInHours(date1: Date, date2: Date): number {
   return getDiffInMinutes(date1, date2) / 60;
 }
 
-// milliseconds to days
 export function getDiffInDays(date1: Date, date2: Date): number {
   return getDiffInHours(date1, date2) / 24;
 }
 
-// milliseconds to months
 export function getDiffInMonths(date1: Date, date2: Date): number {
   return getDiffInDays(date1, date2) / 30;
 }
 
-// milliseconds to years
 export function getDiffInYears(date1: Date, date2: Date): number {
   return getDiffInMonths(date1, date2) / 12;
 }
@@ -98,6 +98,20 @@ export function getDiffIn24HrString(date1: Date, date2: Date): string {
 export function printMilliSecondsAsDate(ms: number, range: TimeRange): string {
   const date:Date = milliSecondsToDate(ms);
   return getLastCharater(range) === 'm' || getLastCharater(range) === 'h'
-   ? get24HrTimeString(date)
-   : getDateString(date);
+    ? get24HrTimeString(date)
+    : getDateString(date);
+}
+
+export function msArrayToDateTimeStringArray(msArray: (number | null)[]): (string | null)[] {
+  return msArray.map((ms) => {
+    if (ms === null) return null;
+    return getDateTimeString(milliSecondsToDate(ms))
+  });
+}
+
+export function formatDateTimeAxisLabel(axisLabel: string | null | undefined, range: TimeRange): string | null | undefined {
+  if (axisLabel === null || axisLabel === undefined) return axisLabel;
+  return getLastCharater(range) === 'm' || getLastCharater(range) === 'h'
+    ? axisLabel.substring(13)
+    : axisLabel.substring(0,11);
 }

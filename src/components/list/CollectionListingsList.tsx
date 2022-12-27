@@ -1,9 +1,10 @@
-import { List, ListItem, Paper, Stack, Typography } from "@mui/material";
+import { List, ListItem, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getListings } from "../../api/collection/protradeCalls";
 import { Listing } from "../../types/collectionTypes/protradeTypes";
 import { Order, sortObjectsByKey } from "../../utils/array";
 import { getCurrentDate, getDiffIn24HrString, milliSecondsToDate } from "../../utils/datetime";
+import { ComponentContainer, ComponentHeader, ComponentList } from "../container/ComponentContainer";
 import { DropDown } from "../util/DropDown";
 import { ETHSymbol } from "../util/Symbols";
 
@@ -52,11 +53,13 @@ const dropDownOptions = [
 interface CollectionListingsListProps {
   cid:string;
   defaultSortBy?: keyof Listing;
+  listHeight: number;
 }
 export default function CollectionListingsList(props: CollectionListingsListProps) {
   const {
     cid,
-    defaultSortBy = 'listingTime'
+    defaultSortBy = 'listingTime',
+    listHeight
   } = props;
 
   const [order, setOrder] = useState<Order>('desc');
@@ -73,33 +76,28 @@ export default function CollectionListingsList(props: CollectionListingsListProp
   }, [order, sortBy]);
 
   return (
-    <Paper
-      elevation={3}
-      sx={{padding: 2}}
-    >
-      <Stack spacing={3}>
-        <Stack direction='row' justifyContent='space-between' alignItems='center'>
-          <Typography variant='h4'>Listings</Typography>
-          <DropDown
-            currValue={sortBy + ' ' + order}
-            menuItems={dropDownOptions}
-            handleChange={(value) => {
-              const [sortBy, order] = value.split(' ') as [keyof Listing, Order];
-              setSortBy(sortBy);
-              setOrder(order);
-            }}
-          />
-        </Stack>
-        
-        <List
-          sx={{height: 1130, overflow: 'auto'}}
-        >
+    <ComponentContainer>
+      
+      <ComponentHeader>
+        <Typography variant='h4'>Listings</Typography>
+        <DropDown
+          currValue={sortBy + ' ' + order}
+          menuItems={dropDownOptions}
+          handleChange={(value) => {
+            const [sortBy, order] = value.split(' ') as [keyof Listing, Order];
+            setSortBy(sortBy);
+            setOrder(order);
+          }}
+        />
+      </ComponentHeader>
+      
+      <ComponentList height={listHeight}>
+        <List>
           {sortObjectsByKey(listings, sortBy, order).map((listing) => 
             {return (<ListingCell listing={listing}/>)})
           }
         </List>
-
-      </Stack>
-    </Paper>
+      </ComponentList>
+    </ComponentContainer>
   )
 }

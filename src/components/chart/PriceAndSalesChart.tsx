@@ -1,15 +1,14 @@
-import { Paper, Stack, Typography } from "@mui/material";
-import { CoreScaleOptions, Scale } from "chart.js";
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Scatter } from "react-chartjs-2";
 import { getPriceAndSales } from "../../api/collection/overviewCalls";
-import { chartData } from "../../types/chartTypes";
 import { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { zipCoords } from "../../utils/array";
-import { get24HrTimeString, getDateString, milliSecondsToDate } from "../../utils/datetime";
-import { paddingComponent, paperElevation, spacingComponent } from "../../utils/format";
+import { getTimeRangeTickLimit } from "../../utils/chart";
+import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
+import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
 import { BarButtonType, SelectionBar } from "../util/SelectionBar";
 import { ValueCard } from "../util/ValueCard";
+import ThreeGraphChart from "./ThreeGraphChart";
 
 const rangeButtons: BarButtonType<TimeRange>[] = [
   {value: '24h', text: '24H'},
@@ -22,104 +21,101 @@ const rangeButtons: BarButtonType<TimeRange>[] = [
 
 interface PriceAndSalesChartProps {
   cid: string;
-  initialRange: TimeRange;
+  initialRange?: TimeRange;
 }
 export default function PriceAndSalesChart(props: PriceAndSalesChartProps) {
   const {
     cid,
-    initialRange
+    initialRange = '7d',
   } = props;
   
-  const [avgPriceData, setAvgPriceData] = useState<chartData>({
-    datasets: [
-      {
-        data: [],
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        showLine: true,
-      }
-    ],
-  });
+  const [chartLabels, setChartLabels] = useState<any[]>([]);
+
+  const [avgPriceData, setAvgPriceData] = useState<any[]>([]);
+  const [floorPriceData, setFloorPriceData] = useState<any[]>([]);
+  const [volumeData, setVolumeData] = useState<any[]>([]);
   
   const [avgPrice, setAvgPrice] = useState<number | null>(null);
+  const [avgPriceDelta, setAvgPriceDelta] = useState<number | null>(null);
   const [floorPrice, setFloorPrice] = useState<number | null>(null);
+  const [floorPriceDelta, setFloorPriceDelta] = useState<number | null>(null);
+  const [normalSales, setNormalSales] = useState<number | null>(null);
+  const [whaleSales, setWhaleSales] = useState<number | null>(null);
+
   const [chartRange, setChartRange] = useState<TimeRange>(initialRange);
+
 
   useEffect(()=> {
     async function fetchData() {
       await getPriceAndSales(cid, chartRange).then((responseJSON) => {
+        setChartLabels(msArrayToDateTimeStringArray(responseJSON.data.volumeEth.values.x));
+
         const x = responseJSON.data.avgPrice.values.x;
         const y = responseJSON.data.avgPrice.values.y;
-        const coords = zipCoords(x,y);
-        setAvgPriceData({
-          datasets: [
-            {
-              data: coords,
-              borderColor: 'rgb(255, 99, 132)',
-              backgroundColor: 'rgba(255, 99, 132, 0.5)',
-              showLine: true
-            },
-          ],
-        });
+        setAvgPriceData(zipCoords(x,y));
+        setFloorPriceData(responseJSON.data.floorPrice.values.y);
+        setVolumeData(responseJSON.data.volumeEth.values.y);
 
         setAvgPrice(responseJSON.data.avgPrice.meta.value);
+        setAvgPriceDelta(responseJSON.data.avgPrice.meta.delta);
         setFloorPrice(responseJSON.data.floorPrice.meta.value);
+        setFloorPriceDelta(responseJSON.data.floorPrice.meta.delta);
+        setNormalSales(responseJSON.data.salesScatter.meta.aggregations.normalSales);
+        setWhaleSales(responseJSON.data.salesScatter.meta.aggregations.whaleSales);
       });
     }
     fetchData();
   }, [chartRange]);
 
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      title: {
-        display: false,
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          callback: function(this: Scale<CoreScaleOptions>, tickValue: string | number, index: number) {
-            const date:Date = milliSecondsToDate(tickValue as number);
-            return chartRange === '24h'
-             ? get24HrTimeString(date)
-             : getDateString(date);
-          },
-        }
-      },
-    }
-  }
-
   return (
-    <Paper
-      elevation={paperElevation}
-      sx={{padding: paddingComponent}}
-    >
-      <Stack spacing={spacingComponent}>
-        <Stack direction='row' justifyContent='space-between'>
+    <ComponentContainer>
+
+        <ComponentHeader>
           <Typography variant='h4'>Price & Sales</Typography>
           <SelectionBar 
             currSelection={chartRange} 
             selections={rangeButtons} 
             handleChange={(range) => setChartRange(range)}
           />
-        </Stack>
+        </ComponentHeader>
 
-        <Stack direction='row' spacing={2}>
-          <ValueCard title='Floor Price' value={floorPrice === null ? 'null' : floorPrice.toFixed(2)} />
-          <ValueCard title='Avg Price' value={avgPrice === null ? 'null' : avgPrice.toFixed(2)} />
-        </Stack>
+        <ComponentInfo>
+          <ValueCard title='Floor Price' value={floorPrice === null ? 'null' : floorPrice.toFixed(2)} 
+            delta={floorPriceDelta} />
+          <ValueCard title='Avg Price' value={avgPrice === null ? 'null' : avgPrice.toFixed(2)} 
+            delta={avgPriceDelta} />
+          <ValueCard title='Normal Sales' value={normalSales} />
+          <ValueCard title='Whale Sales' value={whaleSales} />
+        </ComponentInfo>
         
-        <Scatter
-          data={avgPriceData}
-          width={100}
-          height={30}
-          options={chartOptions}
-        />
-      </Stack>
-    </Paper>
+        <ComponentChart>
+          <ThreeGraphChart
+            chartType="scatter"
+            labels={chartLabels}
+
+            g1Label="Volume"
+            g1Type="bar"
+            g1Data={volumeData}
+            x1TickLimit={getTimeRangeTickLimit(chartRange)}
+            x1Callback={(value: any, index: any, values: any) => {
+              return formatDateTimeAxisLabel(chartLabels[index], chartRange);
+            }}
+            y1Show={false}
+
+            g2Label="Floor Price"
+            g2Type="line"
+            g2Data={floorPriceData}
+            g2ShowLine={true}
+
+            g3Label="Avg Price"
+            g3Type="scatter"
+            g3Data={avgPriceData}
+            x3Cat="linear"
+            y3Show={true}
+            
+          />
+        </ComponentChart>
+        
+    </ComponentContainer>
   )
 }

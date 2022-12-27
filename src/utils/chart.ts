@@ -17,3 +17,21 @@ const timeRangeTicks = {
 export function getTimeRangeTickLimit(timeRange: TimeRange): number {
   return timeRangeTicks[timeRange];
 }
+
+const timeRangeText = {
+  '5m': '5M',
+  '15m': '15M',
+  '30m': '30M',
+  '1h': '1H',
+  '6h': '6H',
+  '24h': '24H',
+  '7d': '7D',
+  '30d': '30D',
+  '3M': '3M',
+  '1y': '1Y',
+  'all': 'ALL',
+}
+
+export function printTimeRange(timeRange: TimeRange): string {
+  return timeRangeText[timeRange];
+}

@@ -2,7 +2,7 @@ import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import { visuallyHidden } from "@mui/utils";
 import { ChangeEvent, Key, MouseEvent, useState } from "react";
 import { getComparator, Order, stableSort } from "../../utils/array";
-import { paddingSection } from "../../utils/format";
+import { paddingSmall } from "../../utils/format";
 
 export interface HeadCell {
   id: string;
@@ -100,7 +100,7 @@ export default function SortableTable(props: SortableTableProps) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box padding={paddingSection} sx={{ width: '100%' }} >
+    <Box padding={paddingSmall} sx={{ width: '100%' }} >
       <Paper sx={{ width: '100%' }}>
         <TableContainer>
           <Table>

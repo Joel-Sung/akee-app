@@ -1,7 +1,8 @@
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import { useRouter } from 'next/router';
 import { ReactNode } from "react";
-import { paddingSection, spacingComponent } from "../../utils/format";
+import { paddingSmall, spacingLarge, spacingMedium } from "../../utils/format";
+import { MyButton } from "../util/Button";
 
 interface TitleLayoutProps {
   children?: ReactNode,
@@ -27,17 +28,17 @@ export default function TitleLayout(props: TitleLayoutProps) {
 
   return (
     <Stack
-      spacing={spacingComponent}
+      spacing={spacingLarge}
     >
       <Paper
-        sx={{ padding: paddingSection }}
+        sx={{ padding: paddingSmall, position: 'sticky', top: 0, zIndex: 1 }}
       >
-        <Stack direction='row' spacing={spacingComponent} >
-          <Button onClick={goHome}>
-            <Typography variant="h1">AVEE</Typography>
-          </Button>
-          <Button onClick={goTopCollections} variant={currLink === 'top' ? "outlined" : "text"}>Top Collections</Button>
-          <Button onClick={goUpcomingCollections} variant={currLink === 'upcoming' ? "outlined" : "text"}>Upcoming Collections</Button>
+        <Stack direction='row' spacing={spacingMedium}>
+          <MyButton onClick={goHome}>
+            <Typography variant="h2">AVEE</Typography>
+          </MyButton>
+          <MyButton onClick={goTopCollections} isClicked={currLink === 'top'}>Top Collections</MyButton>
+          <MyButton onClick={goUpcomingCollections} isClicked={currLink === 'upcoming'}>Upcoming Collections</MyButton>
         </Stack>
       </Paper>
       <main>{children}</main>

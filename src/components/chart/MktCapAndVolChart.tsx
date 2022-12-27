@@ -1,10 +1,11 @@
-import { Paper, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getMarketCapAndVolume } from "../../api/collection/analyticsCalls";
 import { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { getTimeRangeTickLimit } from "../../utils/chart";
-import { printMilliSecondsAsDate } from "../../utils/datetime";
-import { paddingComponent, paperElevation, spacingComponent } from "../../utils/format";
+import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
+import { spacingMedium } from "../../utils/format";
+import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
 import { BarButtonType, SelectionBar } from "../util/SelectionBar";
 import { ValueCard } from "../util/ValueCard";
 import TwoGraphChart from "./TwoGraphChart";
@@ -29,7 +30,7 @@ interface MktCapAndVolChartProps {
 export default function MktCapAndVolChart(props: MktCapAndVolChartProps) {
   const {
     cid,
-    initialRange = '7d'
+    initialRange = '7d',
   } = props;
   
   const [chartRange, setChartRange] = useState<TimeRange>(initialRange);
@@ -46,24 +47,17 @@ export default function MktCapAndVolChart(props: MktCapAndVolChartProps) {
   const [usdG2Data, setUsdG2Data] = useState<any[]>([]);
   const [marketCapUSD, setMarketCapUSD] = useState<number>(0);
   const [volumeUSD, setVolumeUSD] = useState<number>(0);
+  
   useEffect(()=> {
     async function fetchData() {
       await getMarketCapAndVolume(cid, chartRange).then((responseJSON) => {
-        setEthLabels(responseJSON.data.volumeEth.values.x.map((x: number | null) => {
-          if (x === null) return null;
-            return printMilliSecondsAsDate(x,chartRange);
-          })
-        );
+        setEthLabels(msArrayToDateTimeStringArray(responseJSON.data.volumeEth.values.x));
         setEthG1Data(responseJSON.data.marketCapEth.values.y);
         setEthG2Data(responseJSON.data.volumeEth.values.y);
         setMarketCapETH(responseJSON.data.marketCapEth.meta.value);
         setVolumeETH(responseJSON.data.volumeEth.meta.value);
         
-        setUsdLabels(responseJSON.data.volume.values.x.map((x: number | null) => {
-          if (x === null) return null;
-            return printMilliSecondsAsDate(x,chartRange);
-          })
-        );
+        setUsdLabels(msArrayToDateTimeStringArray(responseJSON.data.volume.values.x));
         setUsdG1Data(responseJSON.data.marketCap.values.y);
         setUsdG2Data(responseJSON.data.volume.values.y);
         setMarketCapUSD(responseJSON.data.marketCap.meta.value);
@@ -74,67 +68,74 @@ export default function MktCapAndVolChart(props: MktCapAndVolChartProps) {
   }, [chartRange]);
 
   return (
-    <Paper
-      elevation={paperElevation}
-      sx={{padding: paddingComponent}}
-    >
-      <Stack spacing={spacingComponent}>
-        <Stack direction='row' justifyContent='space-between'>
-          <Typography variant='h4'>Market Cap & Volume</Typography>
+    <ComponentContainer>
 
-          <Stack direction='row' spacing={spacingComponent}>
-            <SelectionBar
-              currSelection={currChart}
-              selections={chartTypeButtons}
-              handleChange={(value) => setCurrChart(value)}
-            />
-            <SelectionBar
-              currSelection={chartRange}
-              selections={rangeButtons}
-              handleChange={(value) => setChartRange(value as TimeRange)}
-            />
-          </Stack>
+      <ComponentHeader>
+        <Typography variant='h4'>Market Cap & Volume</Typography>
+        <Stack direction='row' spacing={spacingMedium}>
+          <SelectionBar
+            currSelection={currChart}
+            selections={chartTypeButtons}
+            handleChange={(value) => setCurrChart(value)}
+          />
+          <SelectionBar
+            currSelection={chartRange}
+            selections={rangeButtons}
+            handleChange={(value) => setChartRange(value as TimeRange)}
+          />
         </Stack>
-        
-        <Stack direction="row" spacing={spacingComponent}>
-          {currChart === 'ETH' 
-            ? <ValueCard title="Market Cap" value={marketCapETH.toFixed(2)} />
-            : <ValueCard title="Market Cap" value={marketCapUSD.toFixed(2)} />
-          }
-          {currChart === 'ETH' 
-            ? <ValueCard title="Volume" value={volumeETH.toFixed(2)} />
-            : <ValueCard title="Volume" value={volumeUSD.toFixed(2)} />
-          }
-        </Stack>
-
+      </ComponentHeader>
+      
+      <ComponentInfo>
         {currChart === 'ETH' 
-          ? <TwoGraphChart
-            chartType="line"
-            labels={ethLabels}
-            g1Label="Market Cap"
-            g1Type="line"
-            g1ShowLine={true}
-            g1Data={ethG1Data}
-            g2Label="ETH volume"
-            g2Type="bar"
-            g2Data={ethG2Data}
-            x1TickLimit={getTimeRangeTickLimit(chartRange)}
-          />
-          : <TwoGraphChart
-            chartType="line"
-            labels={usdLabels}
-            g1Label="Market Cap"
-            g1Type="line"
-            g1ShowLine={true}
-            g1Data={usdG1Data}
-            g2Label="ETH volume"
-            g2Type="bar"
-            g2Data={usdG2Data}
-            x1TickLimit={getTimeRangeTickLimit(chartRange)}
-          />
+          ? <ValueCard title="Market Cap" value={marketCapETH.toFixed(2)} />
+          : <ValueCard title="Market Cap" value={marketCapUSD.toFixed(2)} />
         }
-        
-      </Stack>
-    </Paper>
+        {currChart === 'ETH' 
+          ? <ValueCard title="Volume" value={volumeETH.toFixed(2)} />
+          : <ValueCard title="Volume" value={volumeUSD.toFixed(2)} />
+        }
+      </ComponentInfo>
+
+      <ComponentChart>
+        {currChart === 'ETH'
+          ? <TwoGraphChart
+              chartType="line"
+              labels={ethLabels}
+
+              g1Label="Market Cap"
+              g1Type="line"
+              g1ShowLine={true}
+              g1Data={ethG1Data}
+              x1TickLimit={getTimeRangeTickLimit(chartRange)}
+              x1Callback={(value: any, index: any, values: any) => {
+                return formatDateTimeAxisLabel(ethLabels[index], chartRange);
+              }}
+
+              g2Label="ETH volume"
+              g2Type="bar"
+              g2Data={ethG2Data}
+            />
+          : <TwoGraphChart
+              chartType="line"
+              labels={usdLabels}
+
+              g1Label="Market Cap"
+              g1Type="line"
+              g1ShowLine={true}
+              g1Data={usdG1Data}
+              x1TickLimit={getTimeRangeTickLimit(chartRange)}x1Callback={(value: any, index: any, values: any) => {
+                return formatDateTimeAxisLabel(usdLabels[index], chartRange);
+              }}
+
+              g2Label="ETH volume"
+              g2Type="bar"
+              g2Data={usdG2Data}
+              
+            />
+        }
+      </ComponentChart>
+      
+    </ComponentContainer>
   )
 }
