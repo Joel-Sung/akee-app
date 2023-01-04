@@ -1,7 +1,7 @@
 import { ChartTypeRegistry } from "chart.js";
 import { Chart } from "react-chartjs-2";
 
-interface OneGraphChartProps {
+interface TableCellChartProps {
   chartType: keyof ChartTypeRegistry;
   labels: any[];
   label?: string;
@@ -17,7 +17,7 @@ interface OneGraphChartProps {
   showLegend?: boolean;
   showTitle?: boolean;
 }
-export default function OneGraphChart(props: OneGraphChartProps) {
+export default function TableCellChart(props: TableCellChartProps) {
   const {
     chartType,
     labels,
@@ -26,8 +26,8 @@ export default function OneGraphChart(props: OneGraphChartProps) {
     borderColor = "rgb(112, 181, 225)",
     backgroundColor = "rgba(112, 181, 225, 0.5)",
     showLine = false,
-    xShow = true,
-    yShow = true,
+    xShow = false,
+    yShow = false,
     xCat = 'category',
     xTickLimit = undefined,
     yTickLimit = undefined,
@@ -62,7 +62,7 @@ export default function OneGraphChart(props: OneGraphChartProps) {
     },
     scales: {
       x: {
-        offset: xShow,
+        offset: true,
         display: xShow,
         type: xCat,
         ticks: {

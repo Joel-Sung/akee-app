@@ -5,8 +5,8 @@ import { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { zipCoords } from "../../utils/array";
 import { getTimeRangeTickLimit } from "../../utils/chart";
 import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
+import { BarButtonType, SelectionBar } from "../bar/SelectionBar";
 import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
-import { BarButtonType, SelectionBar } from "../util/SelectionBar";
 import { ValueCard } from "../util/ValueCard";
 import ThreeGraphChart from "./ThreeGraphChart";
 
@@ -80,9 +80,9 @@ export default function PriceAndSalesChart(props: PriceAndSalesChartProps) {
         </ComponentHeader>
 
         <ComponentInfo>
-          <ValueCard title='Floor Price' value={floorPrice === null ? 'null' : floorPrice.toFixed(2)} 
+          <ValueCard title='Floor Price' value={floorPrice} isETHValue={true} isShorten={true}
             delta={floorPriceDelta} />
-          <ValueCard title='Avg Price' value={avgPrice === null ? 'null' : avgPrice.toFixed(2)} 
+          <ValueCard title='Avg Price' value={avgPrice} isETHValue={true} isShorten={true}
             delta={avgPriceDelta} />
           <ValueCard title='Normal Sales' value={normalSales} />
           <ValueCard title='Whale Sales' value={whaleSales} />

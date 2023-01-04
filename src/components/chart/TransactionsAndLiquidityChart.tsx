@@ -76,13 +76,12 @@ export default function TransactionsAndLiquidityChart(props: TransactionsAndLiqu
         </ComponentHeader>
 
         <ComponentInfo>
-          <ValueCard title={'Sales(' + printTimeRange(chartRange) + ')'} value={sales} 
-            delta={salesDelta === null ? null : salesDelta}/>
-          <ValueCard title={'Transfers(' + printTimeRange(chartRange) + ')'} value={transfers}
-            delta={transfersDelta === null ? null : transfersDelta}/>
+          <ValueCard title={'Sales(' + printTimeRange(chartRange) + ')'} 
+            value={sales} delta={salesDelta}/>
+          <ValueCard title={'Transfers(' + printTimeRange(chartRange) + ')'} 
+            value={transfers} delta={transfersDelta} isShorten={true}/>
           <ValueCard title={'Liquidity(' + printTimeRange(chartRange) + ')'} 
-            value={liquidity === null ? null : `${(liquidity * 100).toFixed(2)}%`}
-            delta={liquidityDelta === null ? null : liquidityDelta}/>
+            value={liquidity} delta={liquidityDelta} isPercentage={true}/>
         </ComponentInfo>
         
         <ComponentChart>

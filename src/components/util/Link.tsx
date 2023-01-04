@@ -1,4 +1,5 @@
 import { Link } from "@mui/material";
+import { selected, unselected } from "../../utils/tailwindcss";
 
 interface MyLink {
   href: string;
@@ -12,20 +13,11 @@ export function MyLink(props: MyLink) {
     children
   } = props;
 
-  const linkUnselected = `
-    text-white font-bold py-2 px-4 rounded
-    hover:bg-violet-400  hover:text-black 
-  `
-  const linkSelected = `
-    text-black bg-violet-600 font-bold py-2 px-4 rounded
-    hover:bg-violet-400  hover:text-black
-  `
-
   return (
     <Link
       href={href}
       underline="none"
-      className={isClicked ? linkSelected : linkUnselected}
+      className={isClicked ? selected : unselected}
     >
       {children}
     </Link>

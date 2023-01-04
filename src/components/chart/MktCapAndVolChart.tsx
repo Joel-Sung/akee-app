@@ -5,8 +5,8 @@ import { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { getTimeRangeTickLimit } from "../../utils/chart";
 import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
 import { spacingMedium } from "../../utils/format";
+import { BarButtonType, SelectionBar } from "../bar/SelectionBar";
 import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
-import { BarButtonType, SelectionBar } from "../util/SelectionBar";
 import { ValueCard } from "../util/ValueCard";
 import TwoGraphChart from "./TwoGraphChart";
 
@@ -39,14 +39,18 @@ export default function MktCapAndVolChart(props: MktCapAndVolChartProps) {
   const [ethLabels, setEthLabels] = useState<any[]>([]);
   const [ethG1Data, setEthG1Data] = useState<any[]>([]);
   const [ethG2Data, setEthG2Data] = useState<any[]>([]);
-  const [marketCapETH, setMarketCapETH] = useState<number>(0);
-  const [volumeETH, setVolumeETH] = useState<number>(0);
+  const [mktCapETH, setMktCapETH] = useState<number>(0);
+  const [mktCapETHDelta, setMktCapETHDelta] = useState<number>(0);
+  const [volETH, setVolETH] = useState<number>(0);
+  const [volETHDelta, setVolETHDelta] = useState<number>(0);
 
   const [usdLabels, setUsdLabels] = useState<any[]>([]);
   const [usdG1Data, setUsdG1Data] = useState<any[]>([]);
   const [usdG2Data, setUsdG2Data] = useState<any[]>([]);
-  const [marketCapUSD, setMarketCapUSD] = useState<number>(0);
-  const [volumeUSD, setVolumeUSD] = useState<number>(0);
+  const [mktCapUSD, setMktCapUSD] = useState<number>(0);
+  const [mktCapUSDDelta, setMktCapUSDDelta] = useState<number>(0);
+  const [volUSD, setVolUSD] = useState<number>(0);
+  const [volUSDDelta, setVolUSDDelta] = useState<number>(0);
   
   useEffect(()=> {
     async function fetchData() {
@@ -54,14 +58,18 @@ export default function MktCapAndVolChart(props: MktCapAndVolChartProps) {
         setEthLabels(msArrayToDateTimeStringArray(responseJSON.data.volumeEth.values.x));
         setEthG1Data(responseJSON.data.marketCapEth.values.y);
         setEthG2Data(responseJSON.data.volumeEth.values.y);
-        setMarketCapETH(responseJSON.data.marketCapEth.meta.value);
-        setVolumeETH(responseJSON.data.volumeEth.meta.value);
+        setMktCapETH(responseJSON.data.marketCapEth.meta.value);
+        setMktCapETHDelta(responseJSON.data.marketCapEth.meta.delta);
+        setVolETH(responseJSON.data.volumeEth.meta.value);
+        setVolETHDelta(responseJSON.data.volumeEth.meta.delta);
         
         setUsdLabels(msArrayToDateTimeStringArray(responseJSON.data.volume.values.x));
         setUsdG1Data(responseJSON.data.marketCap.values.y);
         setUsdG2Data(responseJSON.data.volume.values.y);
-        setMarketCapUSD(responseJSON.data.marketCap.meta.value);
-        setVolumeUSD(responseJSON.data.volume.meta.value);
+        setMktCapUSD(responseJSON.data.marketCap.meta.value);
+        setMktCapUSDDelta(responseJSON.data.marketCap.meta.delta);
+        setVolUSD(responseJSON.data.volume.meta.value);
+        setVolUSDDelta(responseJSON.data.volume.meta.delta);
       });
     }
     fetchData();
@@ -87,14 +95,14 @@ export default function MktCapAndVolChart(props: MktCapAndVolChartProps) {
       </ComponentHeader>
       
       <ComponentInfo>
-        {currChart === 'ETH' 
-          ? <ValueCard title="Market Cap" value={marketCapETH.toFixed(2)} />
-          : <ValueCard title="Market Cap" value={marketCapUSD.toFixed(2)} />
-        }
-        {currChart === 'ETH' 
-          ? <ValueCard title="Volume" value={volumeETH.toFixed(2)} />
-          : <ValueCard title="Volume" value={volumeUSD.toFixed(2)} />
-        }
+        <ValueCard title="Market Cap" 
+          value={currChart === 'ETH' ? mktCapETH : mktCapUSD} 
+          delta={currChart === 'ETH' ? mktCapETHDelta : mktCapUSDDelta}
+          isETHValue={true} isShorten={true} />
+        <ValueCard title="Volume" 
+          value={currChart === 'ETH' ? volETH : volUSD}
+          delta={currChart === 'ETH' ? volETHDelta : volUSDDelta}
+          isETHValue={true} isShorten={true}/>
       </ComponentInfo>
 
       <ComponentChart>

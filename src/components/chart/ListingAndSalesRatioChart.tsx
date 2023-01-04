@@ -48,7 +48,7 @@ export default function ListingAndSalesRatioChart(props: ListingAndSalesRatioCha
       await getListingAndSalesRatio(cid, timeRange).then((responseJSON) => {
         setListedSaleRatio(responseJSON.data.ListedSaleRatio);
         setSalesCount(responseJSON.data.salesCount);
-        setDelistedCount(responseJSON.data.delistedCount);
+        setDelistedCount(responseJSON.data.newListedCount);
       });
     }
     fetchData();
@@ -65,12 +65,12 @@ export default function ListingAndSalesRatioChart(props: ListingAndSalesRatioCha
         <RangeDropDown currTimeRange={timeRange} handleChange={onRangeChange}/>
       </ComponentHeader>
 
-      {listedSaleRatio != null &&
+      {/* {listedSaleRatio != null && */}
         <ComponentBar>
-          <Typography variant='subtitle2'>{(listedSaleRatio * 100).toFixed(2)}%</Typography>
+          <Typography variant='subtitle2'>{listedSaleRatio === null ? '' : `${(listedSaleRatio * 100).toFixed(2)}%`}</Typography>
           <LinearProgress
             variant="determinate"
-            value={listedSaleRatio * 100}
+            value={listedSaleRatio === null ? 0 : listedSaleRatio * 100}
             sx={{ height: 10 }}
           />
           <Stack direction='row' justifyContent='space-between'>
@@ -78,7 +78,7 @@ export default function ListingAndSalesRatioChart(props: ListingAndSalesRatioCha
             <Typography>{salesCount} Sales</Typography>
           </Stack>
         </ComponentBar>
-      }
+      {/* } */}
 
     </ComponentContainer>
   )

@@ -1,30 +1,43 @@
 import { Button } from "@mui/material";
+import { ReactNode } from "react";
+import { noHover, selected, unselected } from "../../utils/tailwindcss";
 
-interface MyButton {
+interface MyButtonProps {
   onClick: () => void;
   isClicked?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
-export function MyButton(props: MyButton) {
+export function MyButton(props: MyButtonProps) {
   const {
     onClick,
     isClicked = false,
     children
   } = props;
 
-  const buttonUnselected = `
-    text-white font-bold py-2 px-4 rounded
-    hover:bg-violet-400  hover:text-black 
-  `
-  const buttonSelected = `
-    text-black bg-violet-600 font-bold py-2 px-4 rounded
-    hover:bg-violet-400  hover:text-black
-  `
+  return (
+    <Button
+      onClick={onClick}
+      className={isClicked ? selected : unselected}
+    >
+      {children}
+    </Button>
+  )
+}
+
+interface TextButtonProps {
+  onClick: () => void;
+  children?: ReactNode;
+}
+export function TextButton(props: TextButtonProps) {
+  const {
+    onClick,
+    children
+  } = props;
 
   return (
     <Button
       onClick={onClick}
-      className={isClicked ? buttonSelected : buttonUnselected}
+      className={noHover}
     >
       {children}
     </Button>

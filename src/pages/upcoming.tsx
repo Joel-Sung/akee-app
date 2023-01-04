@@ -1,9 +1,26 @@
-import TitleLayout from '../components/layout/TitleLayout';
+import { Stack, Typography } from '@mui/material';
+import HomeLayout from '../components/layout/HomeLayout';
+import { spacingLarge, spacingSmall } from '../utils/format';
 
 export default function HomePage({ }) {
   return (
-    <TitleLayout currLink={'upcoming'}>
-      <h1>upcoming</h1>
-    </TitleLayout>
+    <HomeLayout currLink={'upcoming'}>
+      <Stack spacing={spacingLarge}>
+        
+        <Stack direction='row'>
+          <Stack flexBasis='50%' spacing={spacingSmall}>
+            <Typography variant='h4'>
+              Upcoming NFT Collections
+            </Typography>
+            <Typography variant='body1'>
+              Below is a compilation of the most exciting drops,
+              listed by the release date and time and the blockchain that the collection is hosted on.
+              Users can view its mint price, the number of assets, and other details.
+            </Typography>
+          </Stack>
+        </Stack>
+        
+      </Stack>
+    </HomeLayout>
   );
 };

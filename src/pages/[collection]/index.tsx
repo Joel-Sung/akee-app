@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PriceAndSalesChart from "../../components/chart/PriceAndSalesChart";
 import CollectionLayout from "../../components/layout/CollectionLayout";
+import LoadingLayout from "../../components/layout/LoadingLayout";
 
 export default function CollectionPage() {
   const [cid, setCid] = useState('');
@@ -14,13 +15,18 @@ export default function CollectionPage() {
   }, [router.isReady]);
 
   return (
-    <CollectionLayout
-      currLink="overview"
-      cid={cid}
-    >
-      {cid !== '' &&
-        <PriceAndSalesChart cid={cid} />
+    <>
+      {cid !== ''
+        ? 
+          <CollectionLayout
+            currLink="overview"
+            cid={cid}
+          >
+            <PriceAndSalesChart cid={cid} />
+          </CollectionLayout>
+          
+        : <LoadingLayout currTab="top" />
       }
-    </CollectionLayout>
+    </>
   )
 }

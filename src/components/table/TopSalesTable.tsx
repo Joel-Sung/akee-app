@@ -6,8 +6,8 @@ import { TimeRange } from '../../types/collectionTypes/collectionTypes';
 import { printTimeRange } from '../../utils/chart';
 import { getCurrentDate, getDiffIn24HrString, milliSecondsToDate } from '../../utils/datetime';
 import { imgHeightSmall, imgWidthSmall, spacingMedium } from '../../utils/format';
+import { BarButtonType, SelectionBar } from '../bar/SelectionBar';
 import { ComponentContainer, ComponentHeader } from '../container/ComponentContainer';
-import { BarButtonType, SelectionBar } from '../util/SelectionBar';
 import { ETHPrice } from '../util/Symbols';
 import BasicTable from './BasicTable';
 

@@ -5,7 +5,7 @@ export interface ListingAndSalesRatio {
     salesCount: number,
     newListedCount: number,
     delistedCount: number,
-    ListedSaleRatio: number
+    ListedSaleRatio: number | null
   }
 }
 

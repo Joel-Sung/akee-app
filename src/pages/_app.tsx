@@ -7,7 +7,7 @@ import { type AppType } from "next/app";
 import { trpc } from "../utils/trpc";
 
 import { CssBaseline } from '@mui/material';
-import { deepPurple, purple } from '@mui/material/colors';
+import { blue, lightBlue } from '@mui/material/colors';
 import "../styles/globals.css";
 
 const theme = createTheme(
@@ -15,14 +15,14 @@ const theme = createTheme(
     palette: {
       mode: 'dark',
       primary: {
-        light: deepPurple[700],
-        main: deepPurple[500],
-        dark: deepPurple[300],
+        light: blue[700],
+        main: blue[500],
+        dark: blue[300],
       },
       secondary: {
-        light: purple[700],
-        main: purple[500],
-        dark: purple[300],
+        light: lightBlue[700],
+        main: lightBlue[500],
+        dark: lightBlue[300],
       },
     },
   }

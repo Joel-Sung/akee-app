@@ -1,5 +1,6 @@
 import { Paper, Stack } from "@mui/material";
-import { MyButton } from "./Button";
+import { paperElevation } from "../../utils/format";
+import { MyButton } from "../util/Button";
 
 interface BarButtonProps<T> {
   buttonValue: T;
@@ -43,7 +44,7 @@ export function SelectionBar<T>(props: SelectionBarProps<T>) {
   } = props;
   
   return (
-    <Paper elevation={1} className="flex justify-items-center">
+    <Paper elevation={paperElevation} className="flex justify-items-center">
       <Stack direction="row">
         {selections.map((button) => {
             return (

@@ -49,3 +49,9 @@ export function zipCoords(arr1: any[], arr2: any[]) {
     }
   });
 }
+
+export function addEmptyValues(arr: any[], length: number, value: any = 0) {
+  return arr.length < length
+    ? arr.concat(Array(length - arr.length).fill(value))
+    : arr;
+}

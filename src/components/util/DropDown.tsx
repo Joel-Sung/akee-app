@@ -1,13 +1,13 @@
 import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 type menuItem = {
-  value: string;
+  value: any;
   text: string
 }
 interface DropDownProps {
   currValue: any;
   menuItems: menuItem[];
-  handleChange: (value:string) => void;
+  handleChange: (value:any) => void;
 }
 export function DropDown(props: DropDownProps) {
   const {

@@ -78,11 +78,11 @@ export default function TradersAndHoldersChart(props: TradersAndHoldersChartProp
 
         <ComponentInfo>
           <ValueCard title={'Buyers(' + printTimeRange(chartRange) + ')'} value={buyers}
-            delta={buyersDelta === null ? null : buyersDelta}/>
+            delta={buyersDelta}/>
           <ValueCard title={'Sellers(' + printTimeRange(chartRange) + ')'} value={sellers}
-            delta={sellersDelta === null ? null : sellersDelta}/>
+            delta={sellersDelta}/>
           <ValueCard title={'Holders'} value={holders} 
-            delta={holdersDelta === null ? null : holdersDelta}/>
+            delta={holdersDelta} isShorten={true}/>
         </ComponentInfo>
         
         <ComponentChart>
