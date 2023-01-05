@@ -7,3 +7,7 @@ export function shortenNumber(value: number) {
         ? (value / 1000).toFixed(2) + 'K'
         : value.toFixed(2);
 }
+
+export function toMoney(value: number) {
+  return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+}

@@ -1,5 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import HomeLayout from '../components/layout/HomeLayout';
+import UpcomingSalesTable from '../components/table/UpcomingSalesTable';
 import { spacingLarge, spacingSmall } from '../utils/format';
 
 export default function HomePage({ }) {
@@ -20,6 +21,7 @@ export default function HomePage({ }) {
           </Stack>
         </Stack>
         
+        <UpcomingSalesTable />
       </Stack>
     </HomeLayout>
   );

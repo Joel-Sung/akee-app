@@ -1,9 +1,14 @@
 import { Stack, Typography } from '@mui/material';
+import { useState } from 'react';
+import { SelectionBar } from '../components/bar/SelectionBar';
 import HomeLayout from '../components/layout/HomeLayout';
 import CollectionRankingTable from '../components/table/CollectionRankingTable';
-import { spacingLarge, spacingSmall } from '../utils/format';
+import NFTRankingTable from '../components/table/NFTRankingTable';
+import { spacingLarge, spacingMedium, spacingSmall } from '../utils/format';
 
 export default function HomePage({ }) {
+  const [tab, setTab] = useState<'Collection' | 'Token'>('Collection');
+
   return (
     <HomeLayout currLink={'top'}>
       <Stack spacing={spacingLarge}>
@@ -23,9 +28,24 @@ export default function HomePage({ }) {
           </Stack>
         </Stack>
 
-        <CollectionRankingTable />
+        <SelectionBar
+          currSelection={tab}
+          selections={[
+            { value: 'Collection', text: 'Top Collections' },
+            { value: 'Token', text: 'NFTs Token' },
+          ]}
+          handleChange={setTab}
+          spacing={spacingMedium}
+          light={true}
+        />
+
+        {
+          tab === 'Collection'
+            ? <CollectionRankingTable />
+            : <NFTRankingTable />
+        }
         
       </Stack>
     </HomeLayout>
   );
-};
+}

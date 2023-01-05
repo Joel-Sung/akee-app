@@ -73,23 +73,34 @@ export function getDiffInYears(date1: Date, date2: Date): number {
   return getDiffInMonths(date1, date2) / 12;
 }
 
-export function getDiffIn24HrString(date1: Date, date2: Date): string {
+export function getDiffInDates(date1: Date, date2: Date): string {
   const diffInHours = getDiffInHours(date1, date2);
   const diffInMinutes = getDiffInMinutes(date1, date2);
   const diffInDays = getDiffInDays(date1, date2);
   const diffInMonths = getDiffInMonths(date1, date2);
   const diffInYears = getDiffInYears(date1, date2);
+  console.log(diffInYears)
 
   if (diffInYears > 1) {
     return `${Math.floor(diffInYears)} years ago`;
+  } else if (diffInYears < -1) {
+    return `In ${-Math.floor(diffInYears)} years`;
   } else if (diffInMonths > 1) {
     return `${Math.floor(diffInMonths)} months ago`;
+  } else if (diffInMonths < -1) {
+    return `In ${-Math.floor(diffInMonths)} months`;
   } else if (diffInDays > 1) {
     return `${Math.floor(diffInDays)} days ago`;
+  } else if (diffInDays < -1) {
+    return `In ${-Math.floor(diffInDays)} days`;
   } else if (diffInHours > 1) {
     return `${Math.floor(diffInHours)} hours ago`;
+  } else if (diffInHours < -1) {
+    return `In ${-Math.floor(diffInHours)} hours`;
   } else if (diffInMinutes > 1) {
     return `${Math.floor(diffInMinutes)} minutes ago`;
+  } else if (diffInMinutes < -1) {
+    return `In ${-Math.floor(diffInMinutes)} minutes`;
   } else {
     return 'Just now';
   }
@@ -114,4 +125,9 @@ export function formatDateTimeAxisLabel(axisLabel: string | null | undefined, ra
   return getLastCharater(range) === 'm' || getLastCharater(range) === 'h'
     ? axisLabel.substring(13)
     : axisLabel.substring(0,11);
+}
+
+export function dateStringToDate(dateString: string): Date {
+  const timestamp = Date.parse(dateString);
+  return new Date(timestamp);
 }

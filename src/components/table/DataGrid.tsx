@@ -1,6 +1,5 @@
 import { Paper } from '@mui/material';
 import { DataGrid, GridColDef, GridEventListener, GridSortItem, GridToolbar } from '@mui/x-data-grid';
-import { useState } from 'react';
 import { paperElevation } from '../../utils/format';
 
 interface MyDataGridProps {
@@ -18,26 +17,10 @@ export default function MyDataGrid(props: MyDataGridProps) {
     rows,
     cols,
     rowCount = 50,
-    onPageSizeChange = () => {},
-    onPageChange = () => {},
     initialSort = [],
     disablePagination = false,
     handleRowClick = () => {},
   } = props;
-  
-  const [pageSize, setPageSize] = useState<number>(rowCount);
-  function onPageSizeChangeDefault(newPageSize: number) {
-    onPageSizeChange(newPageSize);
-    setPageSize(newPageSize);
-  }
-  
-  // const handleEvent: GridEventListener<'rowClick'> = (
-  //   params, // GridRowParams
-  //   event, // MuiEvent<React.MouseEvent<HTMLElement>>
-  //   details, // GridCallbackDetails
-  // ) => {
-  //   console.log(`Movie "${params.row.title}" clicked`);
-  // };
 
   return (
     <Paper elevation={paperElevation}>
@@ -61,14 +44,13 @@ export default function MyDataGrid(props: MyDataGridProps) {
           },
         }}
         onRowClick={handleRowClick}
-        pageSize={pageSize}
-        onPageSizeChange={onPageSizeChangeDefault}
-        onPageChange={onPageChange}
+        pageSize={rowCount}
         initialState={{
           sorting: {
             sortModel: initialSort,
           },
         }}
+        getRowHeight={() => 'auto'}
       />
     </Paper>
   );

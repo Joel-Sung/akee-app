@@ -35,17 +35,21 @@ interface SelectionBarProps<T> {
   currSelection: T;
   selections: BarButtonType<T>[];
   handleChange: (selection: T) => void;
+  spacing?: number;
+  light?: boolean;
 }
 export function SelectionBar<T>(props: SelectionBarProps<T>) {
   const {
     currSelection,
     selections,
     handleChange,
+    spacing = 0,
+    light = false,
   } = props;
   
   return (
-    <Paper elevation={paperElevation} className="flex justify-items-center">
-      <Stack direction="row">
+    <Paper elevation={light ? 0 : paperElevation} className="flex justify-items-center">
+      <Stack direction="row" spacing={spacing}>
         {selections.map((button) => {
             return (
               <BarButton 

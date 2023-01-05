@@ -4,7 +4,7 @@ import { getTopSales } from '../../api/collection/analyticsCalls';
 import { TopSale } from '../../types/collectionTypes/analyticsTypes';
 import { TimeRange } from '../../types/collectionTypes/collectionTypes';
 import { printTimeRange } from '../../utils/chart';
-import { getCurrentDate, getDiffIn24HrString, milliSecondsToDate } from '../../utils/datetime';
+import { getCurrentDate, getDiffInDates, milliSecondsToDate } from '../../utils/datetime';
 import { imgHeightSmall, imgWidthSmall, spacingMedium } from '../../utils/format';
 import { BarButtonType, SelectionBar } from '../bar/SelectionBar';
 import { ComponentContainer, ComponentHeader } from '../container/ComponentContainer';
@@ -76,7 +76,7 @@ export default function TopSalesTable(props: TopSalesTableProps) {
               ETHPrice({ ethPrice: topSale.lastSale.ethPrice.toFixed(2) }),
               ETHPrice({ ethPrice: topSale.lastSale.ethPrice.toFixed(2) }),
               topSale.saleNum24h,
-              getDiffIn24HrString(getCurrentDate(), milliSecondsToDate(topSale.lastSale.timestamp)),
+              getDiffInDates(getCurrentDate(), milliSecondsToDate(topSale.lastSale.timestamp)),
             ]
           }
         }));

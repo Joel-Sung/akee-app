@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getListings } from "../../api/collection/protradeCalls";
 import { Listing } from "../../types/collectionTypes/protradeTypes";
 import { Order, sortObjectsByKey } from "../../utils/array";
-import { getCurrentDate, getDiffIn24HrString, milliSecondsToDate } from "../../utils/datetime";
+import { getCurrentDate, getDiffInDates, milliSecondsToDate } from "../../utils/datetime";
 import { ComponentContainer, ComponentHeader, ComponentList } from "../container/ComponentContainer";
 import { DropDown } from "../util/DropDown";
 import { ETHSymbol } from "../util/Symbols";
@@ -37,7 +37,7 @@ function ListingCell(props: ListingCellProps) {
             </Stack>
           </Stack>
 
-          <Typography>{getDiffIn24HrString(getCurrentDate(), milliSecondsToDate(listing.listingTime))}</Typography>
+          <Typography>{getDiffInDates(getCurrentDate(), milliSecondsToDate(listing.listingTime))}</Typography>
         </Stack>
       </Stack>
     </ListItem>

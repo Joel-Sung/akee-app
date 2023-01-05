@@ -60,7 +60,7 @@ export default function CollectionRankingTable(props: CollectionRankingTableProp
           data={params.row.volume7dData}
         /> 
       )
-    } },
+    }},
     { field: 'Floor Price (7D)', flex: 1 , renderCell: (params:any) => {
       return (
         <TableCellChart
