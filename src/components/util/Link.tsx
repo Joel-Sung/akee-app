@@ -1,7 +1,7 @@
 import LaunchIcon from '@mui/icons-material/Launch';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Link } from "@mui/material";
-import { selected, unselected } from "../../utils/tailwindcss";
+import { withBackground, withoutBackground } from "../../utils/tailwindcss";
 
 interface LinkProps {
   href: string;
@@ -22,7 +22,7 @@ export function MyLink(props: MyLinkProps) {
     <Link
       href={href}
       underline="none"
-      className={isClicked ? selected : unselected}
+      className={isClicked ? withBackground : withoutBackground}
     >
       {children}
     </Link>

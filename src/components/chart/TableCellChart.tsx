@@ -1,5 +1,6 @@
 import { ChartTypeRegistry } from "chart.js";
 import { Chart } from "react-chartjs-2";
+import { myColors } from "../../utils/color";
 
 interface TableCellChartProps {
   chartType: keyof ChartTypeRegistry;
@@ -23,8 +24,8 @@ export default function TableCellChart(props: TableCellChartProps) {
     labels,
     label = "Graph", 
     data,
-    borderColor = "rgb(112, 181, 225)",
-    backgroundColor = "rgba(112, 181, 225, 0.5)",
+    borderColor = myColors.blue,
+    backgroundColor = myColors.lightBlue,
     showLine = false,
     xShow = false,
     yShow = false,

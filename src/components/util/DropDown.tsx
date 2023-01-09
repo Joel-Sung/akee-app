@@ -1,6 +1,6 @@
 import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
-type menuItem = {
+export type menuItem = {
   value: any;
   text: string
 }

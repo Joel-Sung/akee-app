@@ -6,11 +6,10 @@ import { getTokenRanking } from '../../api/home/homeCalls';
 import { TimeRange } from '../../types/collectionTypes/collectionTypes';
 import { spacingMedium, spacingSmall } from '../../utils/format';
 import { toMoney } from '../../utils/numbers';
-import { BarButtonType, SelectionBar } from '../bar/SelectionBar';
-import { DropDown } from '../util/DropDown';
-import Incrementer from '../util/Incrementer';
+import { BarButtonType } from '../bar/SelectionBar';
 import PercentageChange from '../util/PercentageChange';
 import MyDataGrid from './DataGrid';
+import DataGridBar from './DataGridBar';
 
 const rangeSelections: BarButtonType<TimeRange>[] = [
   {value: '24h', text: '24H'},
@@ -127,27 +126,17 @@ export default function NFTRankingTable(props: NFTRankingTableProps) {
   return (
     <Stack spacing={spacingMedium}>
       
-      <Stack direction='row' justifyContent='space-between'>
-
-        <Stack direction='row' spacing={spacingMedium}>
-          <DropDown
-            currValue={rowCount}
-            menuItems={rowCounts}
-            handleChange={setRowCount}
-          />
-          <Incrementer
-            currValue={page}
-            handleInc={() => setPage(page + 1)}
-            handleDec={() => page > 1 ? setPage(page - 1) : {}}
-          />
-        </Stack>
-
-        <SelectionBar
-          currSelection={tableRange}
-          selections={rangeSelections}
-          handleChange={setTableRange}
-        />
-      </Stack>
+      <DataGridBar
+        rowCount={rowCount}
+        rowCounts={rowCounts}
+        setRowCount={setRowCount}
+        page={page}
+        handleIncPage={() => setPage(page + 1)}
+        handleDecPage={() => page > 1 ? setPage(page - 1) : {}}
+        tableRange={tableRange}
+        rangeSelections={rangeSelections}
+        handleSetTableRange={setTableRange}
+      />
 
       <MyDataGrid
         rows={rows}

@@ -39,3 +39,19 @@ const timeRangeText = {
 export function printTimeRange(timeRange: TimeRange): string {
   return timeRangeText[timeRange];
 }
+
+export function isDownwardTrend(values: number[]): boolean {
+  if (values.length > 0) {
+    var first = undefined;
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] !== 0) {
+        first = values[i];
+        break;
+      }
+    }
+    if (first === undefined) return false;
+    return first > (values[values.length - 1] as number);
+  } else {
+    return false;
+  }
+}

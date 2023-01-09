@@ -1,6 +1,6 @@
 import { Paper, Stack } from "@mui/material";
 import { paperElevation } from "../../utils/format";
-import { MyButton } from "../util/Button";
+import { BackgroundButton } from "../util/Button";
 
 interface BarButtonProps<T> {
   buttonValue: T;
@@ -17,12 +17,12 @@ function BarButton<T>(props: BarButtonProps<T>) {
   } = props;
   
   return (
-    <MyButton
+    <BackgroundButton
       onClick={onClick}
       isClicked={buttonValue === value}
     >
       {text}
-    </MyButton>
+    </BackgroundButton>
   )
 }
 

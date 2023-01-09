@@ -2,7 +2,7 @@ import { Paper, Stack, Typography } from "@mui/material";
 import { useRouter } from 'next/router';
 import { ReactNode } from "react";
 import { paddingSmall, spacingLarge, spacingMedium } from "../../utils/format";
-import { MyButton, TextButton } from "../util/Button";
+import { NoHoverButton, TextButton } from "../util/Button";
 
 interface TitleLayoutProps {
   children?: ReactNode,
@@ -34,11 +34,19 @@ export default function TitleLayout(props: TitleLayoutProps) {
         sx={{ padding: paddingSmall, position: 'sticky', top: 0, zIndex: 1 }}
       >
         <Stack direction='row' spacing={spacingMedium}>
-          <TextButton onClick={goHome}>
-            <Typography variant="h2">AKEE</Typography>
+
+          <NoHoverButton onClick={goHome}>
+            <Typography variant="h4">AKEE</Typography>
+          </NoHoverButton>
+
+          <TextButton onClick={goTopCollections} isClicked={currLink === 'top'}>
+            <Typography variant="h4">Top Collections</Typography>
           </TextButton>
-          <MyButton onClick={goTopCollections} isClicked={currLink === 'top'}>Top Collections</MyButton>
-          <MyButton onClick={goUpcomingCollections} isClicked={currLink === 'upcoming'}>Upcoming Collections</MyButton>
+
+          <TextButton onClick={goUpcomingCollections} isClicked={currLink === 'upcoming'}>
+            <Typography variant="h4">Upcoming Collections</Typography>
+          </TextButton>
+
         </Stack>
       </Paper>
       <main>{children}</main>

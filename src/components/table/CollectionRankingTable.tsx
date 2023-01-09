@@ -5,15 +5,15 @@ import { useEffect, useState } from 'react';
 import { getCollectionRanking, getFloorPrice7d, getVolume7d } from '../../api/home/homeCalls';
 import { TimeRange } from '../../types/collectionTypes/collectionTypes';
 import { CollectionData } from '../../types/collectionTypes/homeTypes';
-import { printTimeRange } from '../../utils/chart';
+import { isDownwardTrend, printTimeRange } from '../../utils/chart';
+import { myColors } from '../../utils/color';
 import { msArrayToDateTimeStringArray } from '../../utils/datetime';
 import { spacingMedium } from '../../utils/format';
 import { shortenNumber } from '../../utils/numbers';
-import { BarButtonType, SelectionBar } from '../bar/SelectionBar';
+import { BarButtonType } from '../bar/SelectionBar';
 import TableCellChart from '../chart/TableCellChart';
-import { DropDown } from '../util/DropDown';
-import Incrementer from '../util/Incrementer';
 import MyDataGrid from './DataGrid';
+import DataGridBar from './DataGridBar';
 
 const rangeSelections: BarButtonType<TimeRange>[] = [
   {value: '1h', text: '1H'},
@@ -40,7 +40,10 @@ export default function CollectionRankingTable(props: CollectionRankingTableProp
   const [rows, setRows] = useState<any[]>([]);
 
   const columns = [ 
-    { field: '#', flex: 0.1 },
+    { field: '#', flex: 0.1, 
+      headerAlign: 'center' as const, 
+      align: 'center' as const 
+    },
     { field: 'Collection', flex: 1 },
     { field: `Volume(${tableRangeDisplay})`, flex: 1, 
       valueFormatter: numberCellFormatter
@@ -62,12 +65,15 @@ export default function CollectionRankingTable(props: CollectionRankingTableProp
       )
     }},
     { field: 'Floor Price (7D)', flex: 1 , renderCell: (params:any) => {
+      const isDownward = isDownwardTrend(params.row.floorPrice7dData);
       return (
         <TableCellChart
           chartType='line'
           labels={msArrayToDateTimeStringArray(params.row.floorPrice7dLabels)}
           data={params.row.floorPrice7dData}
           showLine={true}
+          borderColor={isDownward ? myColors.red : myColors.green}
+          backgroundColor={isDownward ? myColors.lightRed : myColors.lightGreen}
         /> 
       )
     }},
@@ -122,27 +128,17 @@ export default function CollectionRankingTable(props: CollectionRankingTableProp
   return (
     <Stack spacing={spacingMedium}>
       
-      <Stack direction='row' justifyContent='space-between'>
-
-        <Stack direction='row' spacing={spacingMedium}>
-          <DropDown
-            currValue={rowCount}
-            menuItems={rowCounts}
-            handleChange={setRowCount}
-          />
-          <Incrementer
-            currValue={page}
-            handleInc={() => setPage(page + 1)}
-            handleDec={() => page > 1 ? setPage(page - 1) : {}}
-          />
-        </Stack>
-
-        <SelectionBar
-          currSelection={tableRange}
-          selections={rangeSelections}
-          handleChange={setTableRange}
-        />
-      </Stack>
+      <DataGridBar
+        rowCount={rowCount}
+        rowCounts={rowCounts}
+        setRowCount={setRowCount}
+        page={page}
+        handleIncPage={() => setPage(page + 1)}
+        handleDecPage={() => page > 1 ? setPage(page - 1) : {}}
+        tableRange={tableRange}
+        rangeSelections={rangeSelections}
+        handleSetTableRange={setTableRange}
+      />
 
       <MyDataGrid
         rows={rows}
