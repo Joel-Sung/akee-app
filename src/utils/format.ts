@@ -2,6 +2,8 @@ export const spacingSmall = 2;
 export const spacingMedium = 3;
 export const spacingLarge = 5;
 
+
+export const paddingVerySmall = 1;
 export const paddingSmall = 3;
 export const paddingMedium = 5;
 export const paddingLarge = 10;

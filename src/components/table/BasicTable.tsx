@@ -19,8 +19,8 @@ export default function BasicTable(props: BasicTableProps) {
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
           <TableRow>
-            {headers.map((header) => (
-              <TableCell>{header}</TableCell>
+            {headers.map((header, index) => (
+              <TableCell key={index}>{header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
@@ -29,8 +29,8 @@ export default function BasicTable(props: BasicTableProps) {
             <TableRow
               key={row.id}
             >
-              {row.data.map((val) => (
-                <TableCell>{val}</TableCell>
+              {row.data.map((val, index) => (
+                <TableCell key={index}>{val}</TableCell>
               ))}
             </TableRow>
           ))}

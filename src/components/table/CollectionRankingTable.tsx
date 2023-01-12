@@ -1,16 +1,16 @@
 import { Stack } from '@mui/material';
-import { GridEventListener, GridValueFormatterParams } from '@mui/x-data-grid';
+import type { GridEventListener, GridValueFormatterParams } from '@mui/x-data-grid';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getCollectionRanking, getFloorPrice7d, getVolume7d } from '../../api/home/homeCalls';
-import { TimeRange } from '../../types/collectionTypes/collectionTypes';
-import { CollectionData } from '../../types/collectionTypes/homeTypes';
+import type { TimeRange } from '../../types/collectionTypes/collectionTypes';
+import type { CollectionData } from '../../types/collectionTypes/homeTypes';
 import { isDownwardTrend, printTimeRange } from '../../utils/chart';
 import { myColors } from '../../utils/color';
 import { msArrayToDateTimeStringArray } from '../../utils/datetime';
 import { spacingMedium } from '../../utils/format';
 import { shortenNumber } from '../../utils/numbers';
-import { BarButtonType } from '../bar/SelectionBar';
+import type { BarButtonType } from '../bar/SelectionBar';
 import TableCellChart from '../chart/TableCellChart';
 import MyDataGrid from './DataGrid';
 import DataGridBar from './DataGridBar';
@@ -25,7 +25,7 @@ const rangeSelections: BarButtonType<TimeRange>[] = [
   {value: '', text: 'ALL'},
 ];
 
-const numberCellFormatter = (cell: GridValueFormatterParams) => shortenNumber(cell.value);
+const numberCellFormatter = (cell: GridValueFormatterParams) => cell.value === undefined ? '-' : shortenNumber(cell.value);
 
 interface CollectionRankingTableProps {
   initialRange?: TimeRange
@@ -151,4 +151,4 @@ export default function CollectionRankingTable(props: CollectionRankingTableProp
       
     </Stack>
   );
-};
+}

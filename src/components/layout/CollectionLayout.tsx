@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
-import { ReactNode } from "react";
-import { CollectionNavBar } from "../../types/navBarTypes";
+import type { ReactNode } from "react";
+import type { CollectionNavBar } from "../../types/navBarTypes";
 import { paddingLarge, spacingLarge, spacingMedium } from "../../utils/format";
 import CollectionDetailsBar from "../bar/CollectionDetailsBar";
 import EmptySpace from "../util/EmptySpace";

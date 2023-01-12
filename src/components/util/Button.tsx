@@ -1,5 +1,4 @@
-import { Button } from "@mui/material";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { noHover, textHighlight, textNoHighlight, withBackground, withoutBackground } from "../../utils/tailwindcss";
 
 interface ButtonProps {
@@ -18,12 +17,15 @@ export function BackgroundButton(props: BackgroundButtonProps) {
   } = props;
 
   return (
-    <Button
+    <button
       onClick={onClick}
-      className={isClicked ? withBackground : withoutBackground}
+      className={isClicked 
+        ? withBackground 
+        : withoutBackground
+      }
     >
       {children}
-    </Button>
+    </button>
   )
 }
 
@@ -38,12 +40,15 @@ export function TextButton(props: TextButtonProps) {
   } = props;
 
   return (
-    <Button
+    <button
       onClick={onClick}
-      className={isClicked ? textHighlight : textNoHighlight}
+      className={isClicked 
+        ? textHighlight
+        : textNoHighlight
+      }
     >
       {children}
-    </Button>
+    </button>
   )
 }
 
@@ -58,11 +63,11 @@ export function NoHoverButton(props: NoHoverButtonProps) {
   } = props;
 
   return (
-    <Button
+    <button
       onClick={onClick}
       className={noHover}
     >
       {children}
-    </Button>
+    </button>
   )
 }

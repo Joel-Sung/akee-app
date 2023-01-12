@@ -4,17 +4,11 @@ import { useEffect, useState } from 'react';
 import { getUpcomingSales } from '../../api/home/homeCalls';
 import { dateStringToDate, getCurrentDate, getDateTimeString, getDiffInDates, getDiffInMilliSeconds } from '../../utils/datetime';
 import { spacingMedium, spacingSmall } from '../../utils/format';
-import { DropDown } from '../util/DropDown';
-import Incrementer from '../util/Incrementer';
 import { DiscordLink, TwitterLink, WebLink } from '../util/Link';
 import MyDataGrid from './DataGrid';
+import DataGridBar from './DataGridBar';
 
-interface UpcomingSalesTableProps {
-}
-export default function UpcomingSalesTable(props: UpcomingSalesTableProps) {
-  const {
-  } = props;
-
+export default function UpcomingSalesTable({}) {
   const [rows, setRows] = useState<any[]>([]);
 
   const columns = [ 
@@ -106,6 +100,18 @@ export default function UpcomingSalesTable(props: UpcomingSalesTableProps) {
   ];
 
   const [page, setPage] = useState<number>(1);
+  const [expandRows, setExpandRows] = useState<boolean>(false);
+  const [rowHeight, setRowHeight] = useState<number | undefined>(100);
+  function handleExpandRows() {
+    if (expandRows) {
+      setExpandRows(false);
+      setRowHeight(100);
+    } else {
+      setExpandRows(true);
+      setRowHeight(undefined);
+    }
+
+  }
   
   useEffect(() => {
     async function fetchData() {
@@ -134,21 +140,18 @@ export default function UpcomingSalesTable(props: UpcomingSalesTableProps) {
   return (
     <Stack spacing={spacingMedium}>
       
-      <Stack direction='row' justifyContent='space-between'>
-
-        <Stack direction='row' spacing={spacingMedium}>
-          <DropDown
-            currValue={rowCount}
-            menuItems={rowCounts}
-            handleChange={setRowCount}
-          />
-          <Incrementer
-            currValue={page}
-            handleInc={() => setPage(page + 1)}
-            handleDec={() => page > 1 ? setPage(page - 1) : {}}
-          />
-        </Stack>
-
+      <Stack>
+        <DataGridBar
+          rowCount={rowCount}
+          rowCounts={rowCounts}
+          setRowCount={setRowCount}
+          page={page}
+          handleIncPage={() => setPage(page + 1)}
+          handleDecPage={() => page > 1 ? setPage(page - 1) : {}}
+          showRange={false}
+          expandRows={handleExpandRows}
+          showExpand={true}
+        />
       </Stack>
 
       <MyDataGrid
@@ -157,8 +160,10 @@ export default function UpcomingSalesTable(props: UpcomingSalesTableProps) {
         rowCount={rowCount}
         initialSort={[{field: 'Starts In', sort: 'asc'}]}
         disablePagination={true}
+        expandRows={expandRows}
+        rowHeight={rowHeight}
       />
       
     </Stack>
   );
-};
+}

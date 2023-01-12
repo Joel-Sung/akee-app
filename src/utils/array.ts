@@ -1,4 +1,4 @@
-import { Key } from "react";
+import type { Key } from "react";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T | undefined) {
   if (orderBy === undefined) return 0;

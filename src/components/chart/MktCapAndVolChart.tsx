@@ -1,11 +1,12 @@
 import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getMarketCapAndVolume } from "../../api/collection/analyticsCalls";
-import { TimeRange } from "../../types/collectionTypes/collectionTypes";
+import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { getTimeRangeTickLimit } from "../../utils/chart";
 import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
 import { spacingMedium } from "../../utils/format";
-import { BarButtonType, SelectionBar } from "../bar/SelectionBar";
+import type { BarButtonType} from "../bar/SelectionBar";
+import { SelectionBar } from "../bar/SelectionBar";
 import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
 import { ValueCard } from "../util/ValueCard";
 import TwoGraphChart from "./TwoGraphChart";

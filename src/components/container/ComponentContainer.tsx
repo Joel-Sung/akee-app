@@ -1,5 +1,5 @@
 import { Box, Paper, Stack } from "@mui/material";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { paddingSmall, paperElevation, spacingMedium } from "../../utils/format";
 
 interface ComponentContainerv1Props {

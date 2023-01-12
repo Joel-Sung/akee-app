@@ -1,6 +1,6 @@
 import { Paper, Stack, Typography } from "@mui/material";
 import { useRouter } from 'next/router';
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { paddingSmall, spacingLarge, spacingMedium } from "../../utils/format";
 import { NoHoverButton, TextButton } from "../util/Button";
 
@@ -40,11 +40,11 @@ export default function TitleLayout(props: TitleLayoutProps) {
           </NoHoverButton>
 
           <TextButton onClick={goTopCollections} isClicked={currLink === 'top'}>
-            <Typography variant="h4">Top Collections</Typography>
+            <Typography variant="h6">Top Collections</Typography>
           </TextButton>
 
           <TextButton onClick={goUpcomingCollections} isClicked={currLink === 'upcoming'}>
-            <Typography variant="h4">Upcoming Collections</Typography>
+            <Typography variant="h6">Upcoming Collections</Typography>
           </TextButton>
 
         </Stack>

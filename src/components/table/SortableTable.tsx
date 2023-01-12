@@ -1,7 +1,9 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
-import { ChangeEvent, Key, MouseEvent, useState } from "react";
-import { getComparator, Order, stableSort } from "../../utils/array";
+import type { ChangeEvent, Key, MouseEvent } from "react";
+import { useState } from "react";
+import type { Order } from "../../utils/array";
+import { getComparator, stableSort } from "../../utils/array";
 import { paddingSmall, paperElevation } from "../../utils/format";
 
 export interface HeadCell {
@@ -70,7 +72,7 @@ export default function SortableTable(props: SortableTableProps) {
     defaultOrderBy = bodyCells.length > 0 ? bodyCells[0] : 0,
     defaultRowsPerPage = 5,
     rowsPerPageOptions = [5,10,25],
-    onRowClick = () => {},
+    onRowClick = () => undefined,
   } = props;
 
   const [order, setOrder] = useState<Order>('asc');
@@ -120,8 +122,8 @@ export default function SortableTable(props: SortableTableProps) {
                       key={row[rowKey]}
                       onClick={() => onRowClick(row[rowKey])}
                     >
-                      {bodyCells.map((objKey) => 
-                        (<TableCell>{row[objKey]}</TableCell>)
+                      {bodyCells.map((objKey, index) => 
+                        (<TableCell key={index}>{row[objKey]}</TableCell>)
                       )}
                     </TableRow>
                   );

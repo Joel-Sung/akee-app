@@ -1,8 +1,9 @@
 import { ListItem, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getSales } from "../../api/collection/protradeCalls";
-import { Sale } from "../../types/collectionTypes/protradeTypes";
-import { Order, sortObjectsByKey } from "../../utils/array";
+import type { Sale } from "../../types/collectionTypes/protradeTypes";
+import type { Order } from "../../utils/array";
+import { sortObjectsByKey } from "../../utils/array";
 import { getCurrentDate, getDiffInDates, milliSecondsToDate } from "../../utils/datetime";
 import { ComponentContainer, ComponentHeader, ComponentList } from "../container/ComponentContainer";
 import { DropDown } from "../util/DropDown";
@@ -92,8 +93,8 @@ export default function SalesListingsList(props: SalesListingsListProps) {
         </ComponentHeader>
         
         <ComponentList height={listHeight}>
-          {sortObjectsByKey(sales, sortBy, order).map((sale) => 
-            {return (<ListingCell sale={sale}/>)})
+          {sortObjectsByKey(sales, sortBy, order).map((sale, index) => 
+            {return (<ListingCell sale={sale} key={index} />)})
           }
         </ComponentList>
 

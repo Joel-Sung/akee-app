@@ -1,4 +1,4 @@
-import { TimeRange } from "../types/collectionTypes/collectionTypes";
+import type { TimeRange } from "../types/collectionTypes/collectionTypes";
 
 const timeRangeTicks = {
   '5m': 5,
@@ -42,7 +42,7 @@ export function printTimeRange(timeRange: TimeRange): string {
 
 export function isDownwardTrend(values: number[]): boolean {
   if (values.length > 0) {
-    var first = undefined;
+    let first = undefined;
     for (let i = 0; i < values.length; i++) {
       if (values[i] !== 0) {
         first = values[i];

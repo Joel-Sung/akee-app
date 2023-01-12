@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getTrade } from "../../api/collection/protradeCalls";
-import { TimeRange } from "../../types/collectionTypes/collectionTypes";
-import { TradeBin } from "../../types/collectionTypes/protradeTypes";
+import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
+import type { TradeBin } from "../../types/collectionTypes/protradeTypes";
 import { zipCoords } from "../../utils/array";
 import { getTimeRangeTickLimit } from "../../utils/chart";
 import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";

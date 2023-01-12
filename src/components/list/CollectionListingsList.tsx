@@ -1,8 +1,9 @@
 import { List, ListItem, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getListings } from "../../api/collection/protradeCalls";
-import { Listing } from "../../types/collectionTypes/protradeTypes";
-import { Order, sortObjectsByKey } from "../../utils/array";
+import type { Listing } from "../../types/collectionTypes/protradeTypes";
+import type { Order } from "../../utils/array";
+import { sortObjectsByKey } from "../../utils/array";
 import { getCurrentDate, getDiffInDates, milliSecondsToDate } from "../../utils/datetime";
 import { ComponentContainer, ComponentHeader, ComponentList } from "../container/ComponentContainer";
 import { DropDown } from "../util/DropDown";
@@ -93,8 +94,8 @@ export default function CollectionListingsList(props: CollectionListingsListProp
       
       <ComponentList height={listHeight}>
         <List>
-          {sortObjectsByKey(listings, sortBy, order).map((listing) => 
-            {return (<ListingCell listing={listing}/>)})
+          {sortObjectsByKey(listings, sortBy, order).map((listing, index) => 
+            {return (<ListingCell listing={listing} key={index} />)})
           }
         </List>
       </ComponentList>

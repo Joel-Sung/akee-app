@@ -1,12 +1,13 @@
 import { Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { getTopSales } from '../../api/collection/analyticsCalls';
-import { TopSale } from '../../types/collectionTypes/analyticsTypes';
-import { TimeRange } from '../../types/collectionTypes/collectionTypes';
+import type { TopSale } from '../../types/collectionTypes/analyticsTypes';
+import type { TimeRange } from '../../types/collectionTypes/collectionTypes';
 import { printTimeRange } from '../../utils/chart';
 import { getCurrentDate, getDiffInDates, milliSecondsToDate } from '../../utils/datetime';
 import { imgHeightSmall, imgWidthSmall, spacingMedium } from '../../utils/format';
-import { BarButtonType, SelectionBar } from '../bar/SelectionBar';
+import type { BarButtonType} from '../bar/SelectionBar';
+import { SelectionBar } from '../bar/SelectionBar';
 import { ComponentContainer, ComponentHeader } from '../container/ComponentContainer';
 import { ETHPrice } from '../util/Symbols';
 import BasicTable from './BasicTable';
@@ -104,4 +105,4 @@ export default function TopSalesTable(props: TopSalesTableProps) {
         
     </ComponentContainer>
   );
-};
+}

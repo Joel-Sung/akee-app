@@ -1,4 +1,4 @@
-import { ChartTypeRegistry } from "chart.js";
+import type { ChartTypeRegistry } from "chart.js";
 import { Chart } from "react-chartjs-2";
 import { getDateTimeString, milliSecondsToDate } from "../../utils/datetime";
 
@@ -110,7 +110,6 @@ export default function TwoGraphChart(props: TwoGraphChartProps) {
       tooltip: {
         callbacks: {
           label: (context: any) => {
-            console.log(context);
             return context.raw.x === undefined
               ? context.raw.y
               : '(' + getDateTimeString(milliSecondsToDate(context.raw.x)) + ', ' 

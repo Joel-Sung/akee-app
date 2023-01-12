@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { TitleNavBar } from "../../types/navBarTypes";
+import type { TitleNavBar } from "../../types/navBarTypes";
 import TitleLayout from "./TitleLayout";
 
 interface LoadingLayoutProps {

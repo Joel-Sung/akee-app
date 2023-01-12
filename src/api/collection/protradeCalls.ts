@@ -1,5 +1,5 @@
-import { TimeRange } from "../../types/collectionTypes/collectionTypes";
-import { FloorPrices, ListingAndSalesRatio, Listings, Sales, Trades } from "../../types/collectionTypes/protradeTypes";
+import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
+import type { FloorPrices, ListingAndSalesRatio, Listings, Sales, Trades } from "../../types/collectionTypes/protradeTypes";
 
 export async function getListingAndSalesRatio(cid:string, range:TimeRange): Promise<ListingAndSalesRatio> {
   console.log('https://api.nftgo.io/api/v1/collection/' + cid + '/pro-trade/metrics/listed-sale-ratio?timeRange=' + range)

@@ -1,6 +1,6 @@
 
-import { MarketCapAndVolume, TopSales, TradersAndHolders, TransactionsAndLiquidity } from "../../types/collectionTypes/analyticsTypes";
-import { TimeRange } from "../../types/collectionTypes/collectionTypes";
+import type { MarketCapAndVolume, TopSales, TradersAndHolders, TransactionsAndLiquidity } from "../../types/collectionTypes/analyticsTypes";
+import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { dateToMilliSeconds, getCurrentDate } from "../../utils/datetime";
 
 export async function getMarketCapAndVolume(cid:string, range: TimeRange): Promise<MarketCapAndVolume> {

@@ -1,5 +1,6 @@
 import { Paper } from '@mui/material';
-import { DataGrid, GridColDef, GridEventListener, GridSortItem, GridToolbar } from '@mui/x-data-grid';
+import type { GridColDef, GridEventListener, GridSortItem } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { paperElevation } from '../../utils/format';
 
 interface MyDataGridProps {
@@ -11,6 +12,8 @@ interface MyDataGridProps {
   initialSort?: GridSortItem[];
   disablePagination?: boolean;
   handleRowClick?: GridEventListener<'rowClick'>;
+  expandRows?: boolean;
+  rowHeight?: number;
 }
 export default function MyDataGrid(props: MyDataGridProps) {
   const {
@@ -19,7 +22,9 @@ export default function MyDataGrid(props: MyDataGridProps) {
     rowCount = 50,
     initialSort = [],
     disablePagination = false,
-    handleRowClick = () => {},
+    handleRowClick = () => undefined,
+    expandRows = false,
+    rowHeight = undefined
   } = props;
 
   return (
@@ -50,7 +55,7 @@ export default function MyDataGrid(props: MyDataGridProps) {
             sortModel: initialSort,
           },
         }}
-        getRowHeight={() => 'auto'}
+        getRowHeight={() => expandRows ? 'auto' : rowHeight}
       />
     </Paper>
   );

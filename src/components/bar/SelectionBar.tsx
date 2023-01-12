@@ -1,5 +1,5 @@
 import { Paper, Stack } from "@mui/material";
-import { paperElevation } from "../../utils/format";
+import { paddingVerySmall, paperElevation } from "../../utils/format";
 import { BackgroundButton } from "../util/Button";
 
 interface BarButtonProps<T> {
@@ -48,15 +48,20 @@ export function SelectionBar<T>(props: SelectionBarProps<T>) {
   } = props;
   
   return (
-    <Paper elevation={light ? 0 : paperElevation} className="flex justify-items-center">
+    <Paper 
+      elevation={light ? 0 : paperElevation} 
+      className="flex justify-items-center"
+      sx={{ padding: paddingVerySmall }}
+    >
       <Stack direction="row" spacing={spacing}>
-        {selections.map((button) => {
+        {selections.map((button, index) => {
             return (
               <BarButton 
                 buttonValue={button.value} 
                 text={button.text} 
                 value={currSelection} 
                 onClick={() => handleChange(button.value)}
+                key={index}
               />
             )
           })

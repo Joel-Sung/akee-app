@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getTransactionsAndLiquidity } from "../../api/collection/analyticsCalls";
-import { TimeRange } from "../../types/collectionTypes/collectionTypes";
+import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { getTimeRangeTickLimit, printTimeRange } from "../../utils/chart";
 import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
 import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";

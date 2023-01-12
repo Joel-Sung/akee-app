@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { paddingLarge, spacingLarge } from "../../utils/format";
 import EmptySpace from "../util/EmptySpace";
 import TitleLayout from "./TitleLayout";

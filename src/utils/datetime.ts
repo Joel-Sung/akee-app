@@ -1,4 +1,4 @@
-import { TimeRange } from "../types/collectionTypes/collectionTypes";
+import type { TimeRange } from "../types/collectionTypes/collectionTypes";
 import { getLastCharater } from "./string";
 
 export function getCurrentDate(): Date {
@@ -79,7 +79,6 @@ export function getDiffInDates(date1: Date, date2: Date): string {
   const diffInDays = getDiffInDays(date1, date2);
   const diffInMonths = getDiffInMonths(date1, date2);
   const diffInYears = getDiffInYears(date1, date2);
-  console.log(diffInYears)
 
   if (diffInYears > 1) {
     return `${Math.floor(diffInYears)} years ago`;

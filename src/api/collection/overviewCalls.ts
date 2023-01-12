@@ -1,5 +1,5 @@
-import { TimeRange } from "../../types/collectionTypes/collectionTypes";
-import { PriceAndSales } from "../../types/collectionTypes/overviewTypes";
+import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
+import type { PriceAndSales } from "../../types/collectionTypes/overviewTypes";
 import { dateToMilliSeconds, getCurrentDate } from "../../utils/datetime";
 
 export async function getPriceAndSales(cid:string, range:TimeRange): Promise<PriceAndSales> {

@@ -1,5 +1,5 @@
 import { Paper } from "@mui/material";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { heightMinLarge, heightMinSmall, paddingMedium, paperElevation, widthLarge, widthMinLarge, widthMinSmall, widthMinVerySmall, widthSmall, widthVerySmall } from "../../utils/format";
 
 interface ListContainerProps {

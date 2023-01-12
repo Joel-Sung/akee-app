@@ -1,7 +1,8 @@
-import { LinearProgress, MenuItem, Select, SelectChangeEvent, Stack, Typography } from "@mui/material";
+import type { SelectChangeEvent} from "@mui/material";
+import { LinearProgress, MenuItem, Select, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getListingAndSalesRatio } from "../../api/collection/protradeCalls";
-import { TimeRange } from "../../types/collectionTypes/collectionTypes";
+import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { ComponentBar, ComponentContainer, ComponentHeader } from "../container/ComponentContainer";
 
 interface RangeDropDownProps {

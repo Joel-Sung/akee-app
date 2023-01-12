@@ -1,5 +1,15 @@
 import { createTheme, ThemeProvider } from '@mui/material';
-import { BarElement, CategoryScale, Chart, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js';
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement, registerables as registerablesJS, Title,
+  Tooltip
+} from 'chart.js';
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
@@ -15,20 +25,31 @@ const theme = createTheme(
     palette: {
       mode: 'dark',
       primary: {
-        light: blue[700],
+        light: blue[300],
         main: blue[500],
-        dark: blue[300],
+        dark: blue[700],
       },
       secondary: {
-        light: lightBlue[700],
+        light: lightBlue[300],
         main: lightBlue[500],
-        dark: lightBlue[300],
+        dark: lightBlue[700],
       },
     },
   }
 );
 
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Title, Tooltip, Legend, BarElement);
+ChartJS.register(...registerablesJS);
+ChartJS.register(
+  CategoryScale, 
+  LinearScale, 
+  PointElement, 
+  LineElement, 
+  Filler,
+  Title, 
+  Tooltip, 
+  Legend, 
+  BarElement
+);
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

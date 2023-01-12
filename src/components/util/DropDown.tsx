@@ -1,4 +1,5 @@
-import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
+import { MenuItem, Select } from "@mui/material";
 
 export type menuItem = {
   value: any;
@@ -23,8 +24,8 @@ export function DropDown(props: DropDownProps) {
         handleChange(event.target.value)
       }}
     >
-      {menuItems.map((item) => (
-        <MenuItem value={item.value}>{item.text}</MenuItem>
+      {menuItems.map((item, index) => (
+        <MenuItem value={item.value} key={index}>{item.text}</MenuItem>
       ))}
     </Select>
   )

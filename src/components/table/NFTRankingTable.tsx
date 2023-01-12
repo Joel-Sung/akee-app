@@ -1,12 +1,12 @@
 import { LinearProgress, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { GridValueFormatterParams } from '@mui/x-data-grid';
+import type { GridValueFormatterParams } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { getTokenRanking } from '../../api/home/homeCalls';
-import { TimeRange } from '../../types/collectionTypes/collectionTypes';
+import type { TimeRange } from '../../types/collectionTypes/collectionTypes';
 import { spacingMedium, spacingSmall } from '../../utils/format';
 import { toMoney } from '../../utils/numbers';
-import { BarButtonType } from '../bar/SelectionBar';
+import type { BarButtonType } from '../bar/SelectionBar';
 import PercentageChange from '../util/PercentageChange';
 import MyDataGrid from './DataGrid';
 import DataGridBar from './DataGridBar';
@@ -148,4 +148,4 @@ export default function NFTRankingTable(props: NFTRankingTableProps) {
       
     </Stack>
   );
-};
+}
