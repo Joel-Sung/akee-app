@@ -42,7 +42,7 @@ export function printTimeRange(timeRange: TimeRange): string {
 
 export function isDownwardTrend(values: number[]): boolean {
   if (values.length > 0) {
-    let first = undefined;
+    let first:(number|undefined) = undefined;
     for (let i = 0; i < values.length; i++) {
       if (values[i] !== 0) {
         first = values[i];

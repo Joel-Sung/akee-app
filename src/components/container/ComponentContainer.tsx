@@ -2,41 +2,15 @@ import { Box, Paper, Stack } from "@mui/material";
 import type { ReactNode } from "react";
 import { paddingSmall, paperElevation, spacingMedium } from "../../utils/format";
 
-interface ComponentContainerv1Props {
-  isSmall?: boolean;
-  isVerySmall?: boolean;
-  children: ReactNode;
-}
-export default function ComponentContainerv1(props: ComponentContainerv1Props) {
-  const {
-    isSmall = false,
-    isVerySmall = false,
-    children
-  } = props;
-
-  return (
-    <Paper
-      elevation={paperElevation}
-      sx={{ 
-        padding: paddingSmall, 
-        minWidth: 500,
-        minHeight: 500,
-      }}
-    >
-      {children}
-    </Paper>
-  )
-}
-
 const componentSpacing = spacingMedium;
 
-interface ComponentContainerProps {
-  sx?: any;
+interface ComponentProps {
   children: ReactNode;
+  height?: number;
 }
-export function ComponentContainer(props: ComponentContainerProps) {
+
+export function ComponentContainer(props: ComponentProps) {
   const {
-    sx,
     children
   } = props;
 
@@ -47,17 +21,14 @@ export function ComponentContainer(props: ComponentContainerProps) {
         padding: paddingSmall,
       }}
     >
-      <Stack spacing={componentSpacing} sx={sx}>
+      <Stack spacing={componentSpacing}>
         {children}
       </Stack>
     </Paper>
   )
 }
 
-interface ComponentHeaderProps {
-  children: ReactNode;
-}
-export function ComponentHeader(props: ComponentHeaderProps) {
+export function ComponentHeader(props: ComponentProps) {
   const {
     children
   } = props;
@@ -74,10 +45,7 @@ export function ComponentHeader(props: ComponentHeaderProps) {
   )
 }
 
-interface ComponentInfoProps {
-  children: ReactNode;
-}
-export function ComponentInfo(props: ComponentInfoProps) {
+export function ComponentInfo(props: ComponentProps) {
   const {
     children
   } = props;
@@ -93,10 +61,7 @@ export function ComponentInfo(props: ComponentInfoProps) {
   )
 }
 
-interface ComponentChartProps {
-  children: ReactNode;
-}
-export function ComponentChart(props: ComponentChartProps) {
+export function ComponentChart(props: ComponentProps) {
   const {
     children
   } = props;
@@ -110,10 +75,7 @@ export function ComponentChart(props: ComponentChartProps) {
   )
 }
 
-interface ComponentBarProps {
-  children: ReactNode;
-}
-export function ComponentBar(props: ComponentBarProps) {
+export function ComponentBar(props: ComponentProps) {
   const {
     children
   } = props;
@@ -129,9 +91,22 @@ export function ComponentBar(props: ComponentBarProps) {
   )
 }
 
-interface ComponentListProps {
+export function ComponentMeter(props: ComponentProps) {
+  const {
+    children
+  } = props;
+
+  return (
+    <Box 
+      height={200}
+    >
+      {children}
+    </Box>
+  )
+}
+
+interface ComponentListProps extends ComponentProps{
   height: number;
-  children: ReactNode;
 }
 export function ComponentList(props: ComponentListProps) {
   const {

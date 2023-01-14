@@ -1,8 +1,11 @@
+import { Box, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import MktSentimentMeter from "../../components/barometer/MktSentimentMeter";
 import PriceAndSalesChart from "../../components/chart/PriceAndSalesChart";
 import CollectionLayout from "../../components/layout/CollectionLayout";
 import LoadingLayout from "../../components/layout/LoadingLayout";
+import { spacingMedium } from "../../utils/format";
 
 export default function CollectionPage() {
   const [cid, setCid] = useState('');
@@ -22,7 +25,17 @@ export default function CollectionPage() {
             currLink="overview"
             cid={cid}
           >
-            <PriceAndSalesChart cid={cid} />
+            <Stack spacing={spacingMedium}>
+
+              <Stack direction='row'>
+                <Box flexBasis='33%'>
+                  <MktSentimentMeter />
+                </Box>
+              </Stack>
+
+              <PriceAndSalesChart cid={cid} />
+              
+            </Stack>
           </CollectionLayout>
           
         : <LoadingLayout currTab="top" />

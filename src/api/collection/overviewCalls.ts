@@ -1,5 +1,5 @@
 import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
-import type { PriceAndSales } from "../../types/collectionTypes/overviewTypes";
+import type { MktSentiment, PriceAndSales } from "../../types/collectionTypes/overviewTypes";
 import { dateToMilliSeconds, getCurrentDate } from "../../utils/datetime";
 
 export async function getPriceAndSales(cid:string, range:TimeRange): Promise<PriceAndSales> {
@@ -7,4 +7,12 @@ export async function getPriceAndSales(cid:string, range:TimeRange): Promise<Pri
   const response = await fetch('https://api.nftgo.io/api/v2/collection-new/data/' + cid + '/chart/price-V2?cid=' + cid + '&from=' + date + '&to=' + date + '&interval=24h&needGenDelta=1&excludeWashTrading=1&range=' + range + '&outlier=1');
   const responseJSON = await response.json();
   return responseJSON;
+}
+
+export async function getMktSentiment(): Promise<MktSentiment> {
+  // TBI
+  const dummyData:MktSentiment = {
+    percentage: 0.33,
+  }
+  return dummyData;
 }

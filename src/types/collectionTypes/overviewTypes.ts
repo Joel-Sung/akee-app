@@ -38,3 +38,7 @@ export interface PriceAndSales {
     volumeEth: PriceAndSalesComponent
   }
 }
+
+export interface MktSentiment {
+  percentage: number,
+}
