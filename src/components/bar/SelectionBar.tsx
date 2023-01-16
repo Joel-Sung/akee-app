@@ -1,6 +1,6 @@
 import { Paper, Stack } from "@mui/material";
 import { paddingVerySmall, paperElevation } from "../../utils/format";
-import { BackgroundButton } from "../util/Button";
+import { BackgroundButton, TextButton } from "../util/Button";
 
 interface BarButtonProps<T> {
   buttonValue: T;
@@ -37,6 +37,7 @@ interface SelectionBarProps<T> {
   handleChange: (selection: T) => void;
   spacing?: number;
   light?: boolean;
+  useTextButton?: boolean;
 }
 export function SelectionBar<T>(props: SelectionBarProps<T>) {
   const {
@@ -45,6 +46,7 @@ export function SelectionBar<T>(props: SelectionBarProps<T>) {
     handleChange,
     spacing = 0,
     light = false,
+    useTextButton = false,
   } = props;
   
   return (
@@ -56,13 +58,26 @@ export function SelectionBar<T>(props: SelectionBarProps<T>) {
       <Stack direction="row" spacing={spacing}>
         {selections.map((button, index) => {
             return (
-              <BarButton 
-                buttonValue={button.value} 
-                text={button.text} 
-                value={currSelection} 
-                onClick={() => handleChange(button.value)}
-                key={index}
-              />
+              <>
+                {useTextButton 
+                  ? 
+                    <TextButton
+                      onClick={() => handleChange(button.value)}
+                      isClicked={button.value === currSelection}
+                      key={index}
+                    >
+                      {button.text}
+                    </TextButton>
+                : 
+                  <BackgroundButton
+                    onClick={() => handleChange(button.value)}
+                    isClicked={button.value === currSelection}
+                    key={index}
+                  >
+                    {button.text}
+                  </BackgroundButton>
+                }
+              </>
             )
           })
         }

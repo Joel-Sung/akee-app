@@ -37,6 +37,7 @@ export default function HomePage({ }) {
           handleChange={setTab}
           spacing={spacingMedium}
           light={true}
+          useTextButton={true}
         />
 
         {

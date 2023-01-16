@@ -1,17 +1,18 @@
 import LaunchIcon from '@mui/icons-material/Launch';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Link from 'next/link';
-import { withBackground, withoutBackground } from "../../utils/tailwindcss";
+import { ReactNode } from 'react';
+import { textHighlight, textNoHighlight, withBackground, withoutBackground } from "../../utils/tailwindcss";
 
 interface LinkProps {
   href: string;
 }
 
-interface MyLinkProps extends LinkProps {
+interface BackgroundLinkProps extends LinkProps {
   isClicked?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
-export function MyLink(props: MyLinkProps) {
+export function BackgroundLink(props: BackgroundLinkProps) {
   const {
     href,
     isClicked = false,
@@ -21,7 +22,34 @@ export function MyLink(props: MyLinkProps) {
   return (
     <Link
       href={href}
-      className={isClicked ? withBackground : withoutBackground}
+      className={isClicked 
+        ? withBackground 
+        : withoutBackground
+      }
+    >
+      {children}
+    </Link>
+  )
+}
+
+interface TextLinkProps extends LinkProps {
+  isClicked?: boolean;
+  children?: ReactNode;
+}
+export function TextLink(props: TextLinkProps) {
+  const {
+    href,
+    isClicked = false,
+    children
+  } = props;
+
+  return (
+    <Link
+      href={href}
+      className={isClicked 
+        ? textHighlight
+        : textNoHighlight
+      }
     >
       {children}
     </Link>

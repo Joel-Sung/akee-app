@@ -4,7 +4,7 @@ import type { CollectionNavBar } from "../../types/navBarTypes";
 import { paddingLarge, spacingLarge, spacingMedium } from "../../utils/format";
 import CollectionDetailsBar from "../bar/CollectionDetailsBar";
 import EmptySpace from "../util/EmptySpace";
-import { MyLink } from "../util/Link";
+import { TextLink } from "../util/Link";
 import TitleLayout from "./TitleLayout";
 
 interface CollectionLayoutProps {
@@ -26,9 +26,9 @@ export default function CollectionLayout(props: CollectionLayoutProps) {
         <CollectionDetailsBar cid={cid} />
 
         <Stack direction="row" spacing={spacingMedium}>
-          <MyLink href={"/" + cid} isClicked={currLink==="overview"}>Overview</MyLink>
-          <MyLink href={"/" + cid + "/protrade"} isClicked={currLink==="protrade"}>Pro Trade</MyLink>
-          <MyLink href={"/" + cid + "/analytics"} isClicked={currLink==="analytics"}>Analytics</MyLink>
+          <TextLink href={"/" + cid} isClicked={currLink==="overview"}>Overview</TextLink>
+          <TextLink href={"/" + cid + "/protrade"} isClicked={currLink==="protrade"}>Pro Trade</TextLink>
+          <TextLink href={"/" + cid + "/analytics"} isClicked={currLink==="analytics"}>Analytics</TextLink>
         </Stack>
 
         <main>{children}</main>
