@@ -7,6 +7,7 @@ export const paddingVerySmall = 1;
 export const paddingSmall = 3;
 export const paddingMedium = 5;
 export const paddingLarge = 10;
+export const paddingVeryLarge = 20;
 
 export const paperElevation = 3;
 

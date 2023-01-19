@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
 import { noHover, textHighlight, textNoHighlight, withBackground, withoutBackground } from "../../utils/tailwindcss";
 
+const buttonStyle = {
+  fontSize: 14,
+}
 interface ButtonProps {
   onClick: () => void;
   children?: ReactNode;
@@ -23,6 +26,7 @@ export function BackgroundButton(props: BackgroundButtonProps) {
         ? withBackground 
         : withoutBackground
       }
+      style={buttonStyle}
     >
       {children}
     </button>
@@ -46,6 +50,7 @@ export function TextButton(props: TextButtonProps) {
         ? textHighlight
         : textNoHighlight
       }
+      style={buttonStyle}
     >
       {children}
     </button>
@@ -66,6 +71,7 @@ export function NoHoverButton(props: NoHoverButtonProps) {
     <button
       onClick={onClick}
       className={noHover}
+      style={buttonStyle}
     >
       {children}
     </button>

@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import type { ReactNode } from "react";
-import type { CollectionNavBar } from "../../types/navBarTypes";
-import { paddingLarge, spacingLarge, spacingMedium } from "../../utils/format";
+import { CollectionNavBar } from "../../types/navBarTypes";
+import { paddingVeryLarge, spacingLarge, spacingMedium } from "../../utils/format";
 import CollectionDetailsBar from "../bar/CollectionDetailsBar";
 import EmptySpace from "../util/EmptySpace";
 import { TextLink } from "../util/Link";
@@ -20,15 +20,16 @@ export default function CollectionLayout(props: CollectionLayoutProps) {
   } = props;
 
   return (
-    <TitleLayout currLink="top">
-      <Stack spacing={spacingLarge} px={paddingLarge}>
+    <TitleLayout currLink="" removeSpacing={true}>
+        
+      <Stack spacing={spacingLarge} px={paddingVeryLarge}>
         
         <CollectionDetailsBar cid={cid} />
 
         <Stack direction="row" spacing={spacingMedium}>
           <TextLink href={"/" + cid} isClicked={currLink==="overview"}>Overview</TextLink>
-          <TextLink href={"/" + cid + "/protrade"} isClicked={currLink==="protrade"}>Pro Trade</TextLink>
-          <TextLink href={"/" + cid + "/analytics"} isClicked={currLink==="analytics"}>Analytics</TextLink>
+          <TextLink href={"/" + cid + "/leaderboard"} isClicked={currLink==="leaderboard"}>Leaderboard</TextLink>
+          <TextLink href={"/" + cid + "/activity"} isClicked={currLink==="activity"}>Activity</TextLink>
         </Stack>
 
         <main>{children}</main>
@@ -36,6 +37,7 @@ export default function CollectionLayout(props: CollectionLayoutProps) {
         <EmptySpace height={200}/>
         
       </Stack>
+
     </TitleLayout>
   )
 }

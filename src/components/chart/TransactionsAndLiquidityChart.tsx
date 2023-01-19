@@ -4,7 +4,7 @@ import { getTransactionsAndLiquidity } from "../../api/collection/analyticsCalls
 import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { getTimeRangeTickLimit, printTimeRange } from "../../utils/chart";
 import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
-import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
+import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo, headerVariant } from "../container/ComponentContainer";
 import { DropDown } from "../util/DropDown";
 import { ValueCard } from "../util/ValueCard";
 import ThreeGraphChart from "./ThreeGraphChart";
@@ -67,7 +67,7 @@ export default function TransactionsAndLiquidityChart(props: TransactionsAndLiqu
     <ComponentContainer>
 
         <ComponentHeader>
-          <Typography variant='h4'>Transactions & Liquidity</Typography>
+          <Typography variant={headerVariant}>Transactions & Liquidity</Typography>
           <DropDown
             currValue={chartRange}
             menuItems={dropDownOptions}

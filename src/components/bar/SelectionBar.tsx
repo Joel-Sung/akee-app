@@ -2,30 +2,6 @@ import { Paper, Stack } from "@mui/material";
 import { paddingVerySmall, paperElevation } from "../../utils/format";
 import { BackgroundButton, TextButton } from "../util/Button";
 
-interface BarButtonProps<T> {
-  buttonValue: T;
-  text: string;
-  value: T;
-  onClick: () => void;
-}
-function BarButton<T>(props: BarButtonProps<T>) {
-  const {
-    buttonValue,
-    text,
-    value,
-    onClick
-  } = props;
-  
-  return (
-    <BackgroundButton
-      onClick={onClick}
-      isClicked={buttonValue === value}
-    >
-      {text}
-    </BackgroundButton>
-  )
-}
-
 export type BarButtonType<T> = {
   value: T;
   text: string;

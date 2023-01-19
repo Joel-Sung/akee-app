@@ -5,9 +5,9 @@ import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { getTimeRangeTickLimit } from "../../utils/chart";
 import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
 import { spacingMedium } from "../../utils/format";
-import type { BarButtonType} from "../bar/SelectionBar";
+import type { BarButtonType } from "../bar/SelectionBar";
 import { SelectionBar } from "../bar/SelectionBar";
-import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
+import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo, headerVariant } from "../container/ComponentContainer";
 import { ValueCard } from "../util/ValueCard";
 import TwoGraphChart from "./TwoGraphChart";
 
@@ -80,7 +80,7 @@ export default function MktCapAndVolChart(props: MktCapAndVolChartProps) {
     <ComponentContainer>
 
       <ComponentHeader>
-        <Typography variant='h4'>Market Cap & Volume</Typography>
+        <Typography variant={headerVariant}>Market Cap & Volume</Typography>
         <Stack direction='row' spacing={spacingMedium}>
           <SelectionBar
             currSelection={currChart}

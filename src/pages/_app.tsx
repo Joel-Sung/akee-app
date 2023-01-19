@@ -22,6 +22,9 @@ import "../styles/globals.css";
 
 const theme = createTheme(
   {
+    typography: {
+      fontSize: 14,
+    },
     palette: {
       mode: 'dark',
       primary: {

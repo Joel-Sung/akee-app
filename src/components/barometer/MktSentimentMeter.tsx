@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { getMktSentiment } from '../../api/collection/overviewCalls';
-import { ComponentContainer, ComponentHeader, ComponentMeter } from '../container/ComponentContainer';
+import { ComponentContainer, ComponentHeader, ComponentMeter, headerVariant } from '../container/ComponentContainer';
 
 export default function MktSentimentMeter({}) {
   const [mktSentiment, setMktSentiment] = useState<number>(0);
@@ -22,7 +22,7 @@ export default function MktSentimentMeter({}) {
     <ComponentContainer>
 
       <ComponentHeader>
-        <Typography variant="h4">Market Sentiment</Typography>
+        <Typography variant={headerVariant}>Market Sentiment</Typography>
       </ComponentHeader>
 
       <ComponentMeter>
@@ -32,6 +32,7 @@ export default function MktSentimentMeter({}) {
           colors={['blue', 'green', 'yellow']}
           percent={mktSentiment}
           arcPadding={0.02}
+          style={{width: 250}}
         />
       </ComponentMeter>
 

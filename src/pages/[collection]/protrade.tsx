@@ -11,6 +11,7 @@ import SalesListingsList from "../../components/list/SalesListingsList";
 import { spacingMedium } from "../../utils/format";
 
 export default function ProTrade() {
+  // Currently unused page
   const [cid, setCid] = useState('');
 
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function ProTrade() {
       {cid !== ''
         ? 
           <CollectionLayout
-            currLink="protrade"
+            currLink="overview"
             cid={cid}
           >
             <Stack direction='row' justifyContent='space-between'>
@@ -53,7 +54,7 @@ export default function ProTrade() {
             </Stack>
           </CollectionLayout>
           
-        : <LoadingLayout currTab="top" />
+        : <LoadingLayout currTab="" />
       }
     </>
   )

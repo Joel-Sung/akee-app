@@ -6,9 +6,9 @@ import type { TimeRange } from '../../types/collectionTypes/collectionTypes';
 import { printTimeRange } from '../../utils/chart';
 import { getCurrentDate, getDiffInDates, milliSecondsToDate } from '../../utils/datetime';
 import { imgHeightSmall, imgWidthSmall, spacingMedium } from '../../utils/format';
-import type { BarButtonType} from '../bar/SelectionBar';
+import type { BarButtonType } from '../bar/SelectionBar';
 import { SelectionBar } from '../bar/SelectionBar';
-import { ComponentContainer, ComponentHeader } from '../container/ComponentContainer';
+import { ComponentContainer, ComponentHeader, headerVariant } from '../container/ComponentContainer';
 import { ETHPrice } from '../util/Symbols';
 import BasicTable from './BasicTable';
 
@@ -90,7 +90,7 @@ export default function TopSalesTable(props: TopSalesTableProps) {
     <ComponentContainer>
         
         <ComponentHeader>
-          <Typography variant='h4'>Top Sales({printTimeRange(tableRange)})</Typography>
+          <Typography variant={headerVariant}>Top Sales({printTimeRange(tableRange)})</Typography>
           <SelectionBar
             currSelection={tableRange}
             selections={barButtons}

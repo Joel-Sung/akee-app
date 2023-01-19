@@ -1,51 +1,38 @@
 import { Paper, Stack, Typography } from "@mui/material";
-import { useRouter } from 'next/router';
 import type { ReactNode } from "react";
+import { TitleNavBar } from "../../types/navBarTypes";
 import { paddingSmall, spacingLarge, spacingMedium } from "../../utils/format";
-import { NoHoverButton, TextButton } from "../util/Button";
+import { NoHoverLink, TextLink } from "../util/Link";
 
 interface TitleLayoutProps {
   children?: ReactNode,
-  currLink: 'top' | 'upcoming',
+  currLink: TitleNavBar,
+  removeSpacing?: boolean
 }
 export default function TitleLayout(props: TitleLayoutProps) {
   const {
     children,
-    currLink
+    currLink,
+    removeSpacing = false
   } = props;
-  
-  const router = useRouter();
-
-  function goHome() {
-    router.push({pathname: '/'})
-  }
-  function goTopCollections() {
-    router.push({pathname: '/'})
-  }
-  function goUpcomingCollections() {
-    router.push({pathname: '/upcoming'})
-  }
 
   return (
     <Stack
-      spacing={spacingLarge}
+      spacing={removeSpacing ? 0 : spacingLarge}
     >
       <Paper
         sx={{ padding: paddingSmall, position: 'sticky', top: 0, zIndex: 1 }}
       >
-        <Stack direction='row' spacing={spacingMedium}>
+        <Stack direction='row' spacing={spacingMedium} alignItems="center">
 
-          <NoHoverButton onClick={goHome}>
+          <NoHoverLink href={"/"}> 
             <Typography variant="h4">AKEE</Typography>
-          </NoHoverButton>
-
-          <TextButton onClick={goTopCollections} isClicked={currLink === 'top'}>
-            <Typography variant="h6">Top Collections</Typography>
-          </TextButton>
-
-          <TextButton onClick={goUpcomingCollections} isClicked={currLink === 'upcoming'}>
-            <Typography variant="h6">Upcoming Collections</Typography>
-          </TextButton>
+          </NoHoverLink>
+          <TextLink href={"/analytics"} isClicked={currLink==="analytics"}>Analytics</TextLink>
+          <TextLink href={"/predictions"} isClicked={currLink==="predictions"}>Price Prediction</TextLink>
+          <TextLink href={"/launches"} isClicked={currLink==="launches"}>Launches</TextLink>
+          <TextLink href={"/developer"} isClicked={currLink==="developer"}>Developer</TextLink>
+          <TextLink href={"/resources"} isClicked={currLink==="resources"}>Resources</TextLink>
 
         </Stack>
       </Paper>

@@ -4,7 +4,7 @@ import { getTradersAndHolders } from "../../api/collection/analyticsCalls";
 import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { getTimeRangeTickLimit, printTimeRange } from "../../utils/chart";
 import { printMilliSecondsAsDate } from "../../utils/datetime";
-import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
+import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo, headerVariant } from "../container/ComponentContainer";
 import { DropDown } from "../util/DropDown";
 import { ValueCard } from "../util/ValueCard";
 import ThreeGraphChart from "./ThreeGraphChart";
@@ -68,7 +68,7 @@ export default function TradersAndHoldersChart(props: TradersAndHoldersChartProp
     <ComponentContainer>
 
         <ComponentHeader>
-          <Typography variant='h4'>Traders & Holders</Typography>
+          <Typography variant={headerVariant}>Traders & Holders</Typography>
           <DropDown
             currValue={chartRange}
             menuItems={dropDownOptions}

@@ -1,3 +1,3 @@
-export type TitleNavBar = 'top' | 'upcoming';
+export type TitleNavBar = '' | 'analytics' | 'predictions' | 'launches' | 'developer' | 'resources';
 
-export type CollectionNavBar = 'overview' | 'protrade' | 'analytics';
+export type CollectionNavBar = 'overview' | 'leaderboard' | 'activity';

@@ -5,9 +5,9 @@ import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { zipCoords } from "../../utils/array";
 import { getTimeRangeTickLimit } from "../../utils/chart";
 import { formatDateTimeAxisLabel, msArrayToDateTimeStringArray } from "../../utils/datetime";
-import type { BarButtonType} from "../bar/SelectionBar";
+import type { BarButtonType } from "../bar/SelectionBar";
 import { SelectionBar } from "../bar/SelectionBar";
-import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo } from "../container/ComponentContainer";
+import { ComponentChart, ComponentContainer, ComponentHeader, ComponentInfo, headerVariant } from "../container/ComponentContainer";
 import { ValueCard } from "../util/ValueCard";
 import ThreeGraphChart from "./ThreeGraphChart";
 
@@ -72,7 +72,7 @@ export default function PriceAndSalesChart(props: PriceAndSalesChartProps) {
     <ComponentContainer>
 
         <ComponentHeader>
-          <Typography variant='h4'>Price & Sales</Typography>
+          <Typography variant={headerVariant}>Price & Sales</Typography>
           <SelectionBar 
             currSelection={chartRange} 
             selections={rangeButtons} 

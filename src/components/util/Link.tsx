@@ -2,7 +2,7 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { textHighlight, textNoHighlight, withBackground, withoutBackground } from "../../utils/tailwindcss";
+import { noHover, textHighlight, textNoHighlight, withBackground, withoutBackground } from "../../utils/tailwindcss";
 
 interface LinkProps {
   href: string;
@@ -50,6 +50,25 @@ export function TextLink(props: TextLinkProps) {
         ? textHighlight
         : textNoHighlight
       }
+    >
+      {children}
+    </Link>
+  )
+}
+
+interface NoHoverLinkProps extends LinkProps {
+  children?: ReactNode;
+}
+export function NoHoverLink(props: NoHoverLinkProps) {
+  const {
+    href,
+    children
+  } = props;
+
+  return (
+    <Link
+      href={href}
+      className={noHover}
     >
       {children}
     </Link>

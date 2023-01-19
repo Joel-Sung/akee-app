@@ -13,6 +13,8 @@ export type CollectionData = {
   id: string,
   name: string,
   longDesc: string,
+  logo: string,
+  bannerImageUrl: string,
 }
 export interface CollectionRanking {
   errorCode: number,

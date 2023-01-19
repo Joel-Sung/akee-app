@@ -28,6 +28,8 @@ export function ComponentContainer(props: ComponentProps) {
   )
 }
 
+export const headerVariant = "h5";
+
 export function ComponentHeader(props: ComponentProps) {
   const {
     children
@@ -38,7 +40,7 @@ export function ComponentHeader(props: ComponentProps) {
       direction='row' 
       justifyContent='space-between'
       alignItems='center'
-      height={50}
+      height={30}
     >
       {children}
     </Stack>
@@ -54,7 +56,7 @@ export function ComponentInfo(props: ComponentProps) {
     <Stack 
       direction='row' 
       spacing={spacingMedium}
-      height={30}
+      height={25}
     >
       {children}
     </Stack>
@@ -68,7 +70,7 @@ export function ComponentChart(props: ComponentProps) {
 
   return (
     <Box 
-      height={500}
+      height={300}
     >
       {children}
     </Box>
@@ -98,7 +100,7 @@ export function ComponentMeter(props: ComponentProps) {
 
   return (
     <Box 
-      height={200}
+      height={100}
     >
       {children}
     </Box>
