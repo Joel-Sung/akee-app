@@ -92,3 +92,32 @@ export interface UpcomingSales {
     ]
   },
 }
+
+type KeywordCollection = {
+  id: string,
+  name: string,
+  longDesc: string,
+  logo: string,
+  bannerImageUrl: string,
+  floorPrice: {
+    tokenPrice: number,
+  },
+}
+export interface KeywordCollections {
+  errorCode: number,
+  data: {
+    collections: KeywordCollection[],
+    total: number,
+  }
+}
+
+export interface CollectionDetails {
+  data: {
+    floorPrice: {
+      tokenPrice: number,
+    },
+    holderNum: number,
+    marketCapEth: number,
+    volumeEth: number,
+  }
+}

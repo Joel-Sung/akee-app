@@ -1,4 +1,3 @@
-
 import type { MarketCapAndVolume, TopSales, TradersAndHolders, TransactionsAndLiquidity } from "../../types/collectionTypes/analyticsTypes";
 import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { dateToMilliSeconds, getCurrentDate } from "../../utils/datetime";

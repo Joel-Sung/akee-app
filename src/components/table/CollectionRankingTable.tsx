@@ -92,7 +92,7 @@ export default function CollectionRankingTable(props: CollectionRankingTableProp
   const goToCollection: GridEventListener<'rowClick'> = (params) => {
     router.push({
       pathname: `/[collection]`,
-      query: {collection: params.row.cid}
+      query: {collection: params.row.Collection.toLowerCase().replaceAll(' ', '-')}
     })
   }
   
