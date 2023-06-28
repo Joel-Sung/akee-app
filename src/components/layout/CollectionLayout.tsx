@@ -37,8 +37,6 @@ export default function CollectionLayout(props: CollectionLayoutProps) {
 
         <Stack direction="row" spacing={spacingMedium}>
           <TextLink href={"/" + collName} isClicked={currLink==="overview"}>Overview</TextLink>
-          <TextLink href={"/" + collName + "/leaderboard"} isClicked={currLink==="leaderboard"}>Leaderboard</TextLink>
-          <TextLink href={"/" + collName + "/activity"} isClicked={currLink==="activity"}>Activity</TextLink>
         </Stack>
 
         <main>{children}</main>

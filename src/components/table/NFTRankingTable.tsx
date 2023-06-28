@@ -31,7 +31,7 @@ export default function NFTRankingTable(props: NFTRankingTableProps) {
   const [tableRange, setTableRange] = useState<TimeRange>(initialRange);
   const [rows, setRows] = useState<any[]>([]);
 
-  const columns = [ 
+  const columns = [
     { field: '#', flex: 0.5 },
     { field: 'Name', flex: 1.5, renderCell: (params:any) => {
       return (

@@ -66,8 +66,7 @@ export default function SearchBar() {
     router.push({
       pathname: `/[collection]`,
       query: {collection: name},
-    });
-    router.reload();
+    }).then(() => router.reload());
   }
 
   return (
