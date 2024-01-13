@@ -1,7 +1,11 @@
-import { Paper } from '@mui/material';
-import type { GridColDef, GridEventListener, GridSortItem } from '@mui/x-data-grid';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { paperElevation } from '../../utils/format';
+import { Paper } from "@mui/material";
+import type {
+  GridColDef,
+  GridEventListener,
+  GridSortItem,
+} from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { paperElevation } from "../../utils/format";
 
 interface MyDataGridProps {
   rows: any[];
@@ -11,7 +15,7 @@ interface MyDataGridProps {
   onPageChange?: (newPage: number) => void;
   initialSort?: GridSortItem[];
   disablePagination?: boolean;
-  handleRowClick?: GridEventListener<'rowClick'>;
+  handleRowClick?: GridEventListener<"rowClick">;
   expandRows?: boolean;
   rowHeight?: number;
 }
@@ -24,8 +28,12 @@ export default function MyDataGrid(props: MyDataGridProps) {
     disablePagination = false,
     handleRowClick = () => undefined,
     expandRows = false,
-    rowHeight = undefined
+    rowHeight = undefined,
   } = props;
+
+  for (let i = 0; i < cols.length; i++) {
+    cols[i]!.minWidth = 125;
+  }
 
   return (
     <Paper elevation={paperElevation}>
@@ -36,7 +44,7 @@ export default function MyDataGrid(props: MyDataGridProps) {
         disableColumnFilter
         disableColumnSelector
         disableDensitySelector
-        components={{ 
+        components={{
           Toolbar: GridToolbar,
           Pagination: disablePagination ? null : undefined,
         }}
@@ -55,7 +63,7 @@ export default function MyDataGrid(props: MyDataGridProps) {
             sortModel: initialSort,
           },
         }}
-        getRowHeight={() => expandRows ? 'auto' : rowHeight}
+        getRowHeight={() => (expandRows ? "auto" : rowHeight)}
       />
     </Paper>
   );

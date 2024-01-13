@@ -80,7 +80,7 @@ export default function TransactionsAndLiquidityChart(
   return (
     <ComponentContainer>
       <ComponentHeader>
-        <Typography variant={headerVariant}>
+        <Typography variant={headerVariant} className="mb-[2vh] xl:mb-0">
           Transactions & Liquidity
         </Typography>
         <DropDown

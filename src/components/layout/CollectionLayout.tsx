@@ -1,32 +1,21 @@
 import { Stack } from "@mui/material";
 import type { ReactNode } from "react";
-import { CollectionNavBar } from "../../types/navBarTypes";
-import { paddingVeryLarge, spacingLarge, spacingMedium } from "../../utils/format";
-import CollectionDetailsBar, { CollectionDetailsBarProps } from "../bar/CollectionDetailsBar";
+import { spacingLarge } from "../../utils/format";
+import CollectionDetailsBar, {
+  CollectionDetailsBarProps,
+} from "../bar/CollectionDetailsBar";
 import EmptySpace from "../util/EmptySpace";
-import { TextLink } from "../util/Link";
 import TitleLayout from "./TitleLayout";
 
 interface CollectionLayoutProps extends CollectionDetailsBarProps {
-  children?: ReactNode,
-  currLink: CollectionNavBar,
+  children?: ReactNode;
 }
-export default function CollectionLayout(props: CollectionLayoutProps) { 
-  const { 
-    children,
-    currLink,
-    cid,
-    collName,
-    collDesc,
-    logoSrc,
-    bannerSrc,
-  } = props;
+export default function CollectionLayout(props: CollectionLayoutProps) {
+  const { children, cid, collName, collDesc, logoSrc, bannerSrc } = props;
 
   return (
-    <TitleLayout currLink="" removeSpacing={true}>
-        
-      <Stack spacing={spacingLarge} px={paddingVeryLarge}>
-        
+    <TitleLayout removeSpacing={true}>
+      <Stack spacing={spacingLarge} className="mx-[5vw]">
         <CollectionDetailsBar
           cid={cid}
           collName={collName}
@@ -35,16 +24,10 @@ export default function CollectionLayout(props: CollectionLayoutProps) {
           bannerSrc={bannerSrc}
         />
 
-        <Stack direction="row" spacing={spacingMedium}>
-          <TextLink href={"/" + collName} isClicked={currLink==="overview"}>Overview</TextLink>
-        </Stack>
-
         <main>{children}</main>
 
-        <EmptySpace height={200}/>
-        
+        <EmptySpace height={200} />
       </Stack>
-
     </TitleLayout>
-  )
+  );
 }

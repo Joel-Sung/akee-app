@@ -76,7 +76,9 @@ export default function TradersAndHoldersChart(
   return (
     <ComponentContainer>
       <ComponentHeader>
-        <Typography variant={headerVariant}>Traders & Holders</Typography>
+        <Typography variant={headerVariant} className="mb-[2vh] xl:mb-0">
+          Traders & Holders
+        </Typography>
         <DropDown
           currValue={chartRange}
           menuItems={dropDownOptions}

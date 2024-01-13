@@ -1,29 +1,21 @@
 import { Stack } from "@mui/material";
 import type { ReactNode } from "react";
-import { TitleNavBar } from "../../types/navBarTypes";
-import { paddingLarge, spacingLarge } from "../../utils/format";
+import { spacingLarge } from "../../utils/format";
 import EmptySpace from "../util/EmptySpace";
 import TitleLayout from "./TitleLayout";
 
 interface HomeProps {
-  children?: ReactNode,
-  currLink: TitleNavBar,
+  children?: ReactNode;
 }
-export default function HomeLayout(props: HomeProps) { 
-  const { 
-    children, 
-    currLink,
-  } = props;
-  
+export default function HomeLayout(props: HomeProps) {
+  const { children } = props;
+
   return (
-    <TitleLayout currLink={currLink}>
-      <Stack
-        spacing={spacingLarge}
-        px={paddingLarge}
-      >
+    <TitleLayout>
+      <Stack spacing={spacingLarge} className="mx-[5vw]">
         <main>{children}</main>
-        <EmptySpace height={200}/>
+        <EmptySpace height={200} />
       </Stack>
     </TitleLayout>
-  )
+  );
 }

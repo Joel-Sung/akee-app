@@ -1,7 +1,7 @@
 # AKEE
 
-The AKEE webpage displays the top latest NFT collections and tokens, as well as upcoming collections.
+The AKEE webpage displays the top latest NFT collections and tokens, as well as upcoming collections. The data is obtained through public API from nftgo and coinmarketcap.
 
-API from nftgo and coinmarketcap is used to get the data required.
+Vercel link: https://akee-ruddy.vercel.app/
 
-Click into the NFT collection rows or search for the NFT collection in the search bar for more details about the collection.
+Note: This website was made with the purpose of being a sample for a client. It is no longer being maintained and data displayed may be outdated or missing.

@@ -1,25 +1,18 @@
 import { Box, Typography } from "@mui/material";
-import type { TitleNavBar } from "../../types/navBarTypes";
 import TitleLayout from "./TitleLayout";
 
-interface LoadingLayoutProps {
-  currTab: TitleNavBar,
-}
-export default function LoadingLayout(props: LoadingLayoutProps) { 
-  const { 
-    currTab, 
-  } = props;
-
+export default function LoadingLayout({}) {
   return (
-    <TitleLayout currLink={currTab}>
-      <Box sx={{ 
-          display: 'flex', 
-          alignItems:'center', 
-          justifyContent:'center',
+    <TitleLayout>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Typography variant="h1">Loading...</Typography>
       </Box>
     </TitleLayout>
-  )
+  );
 }

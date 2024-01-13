@@ -29,7 +29,6 @@ const rangeSelections: BarButtonType<TimeRange>[] = [
   { value: "24h", text: "24H" },
   { value: "7d", text: "7D" },
   { value: "30d", text: "30D" },
-  { value: "all", text: "ALL" },
 ];
 
 const numberCellFormatter = (cell: GridValueFormatterParams) =>

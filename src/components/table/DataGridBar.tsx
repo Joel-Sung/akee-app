@@ -1,4 +1,4 @@
-import { Divider, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { spacingMedium } from "../../utils/format";
 import type { BarButtonType } from "../bar/SelectionBar";
@@ -43,10 +43,10 @@ export default function DataGridBar(props: DataGridBarProps) {
   } = props;
 
   return (
-    <Stack direction="row" justifyContent="space-between">
-      <Stack direction="row" spacing={spacingMedium}>
+    <div className="flex flex-col lg:flex-row lg:justify-between">
+      <Stack direction="row" spacing={spacingMedium} className="mb-[2vh]">
         {showRowCount && rowCount && rowCounts && setRowCount && (
-          <Stack direction="row" alignItems="center" spacing={spacingMedium}>
+          <Stack direction="row" alignItems="center" spacing="1vw">
             <Typography>Show Rows: </Typography>
             <DropDown
               currValue={rowCount}
@@ -55,12 +55,9 @@ export default function DataGridBar(props: DataGridBarProps) {
             />
           </Stack>
         )}
-
-        <Divider />
-
         {showPage && page && handleIncPage && handleDecPage && (
           <Stack direction="row" alignItems="center">
-            <Typography>Page: </Typography>
+            <Typography className="mr-[1vw]">Page: </Typography>
             <Incrementer
               currValue={page}
               handleInc={handleIncPage}
@@ -68,12 +65,10 @@ export default function DataGridBar(props: DataGridBarProps) {
             />
           </Stack>
         )}
-
         {showExpand && expandRows && (
           <TextButton onClick={expandRows}>Expand Rows</TextButton>
         )}
       </Stack>
-
       {showRange && tableRange && rangeSelections && handleSetTableRange && (
         <SelectionBar
           currSelection={tableRange}
@@ -81,6 +76,6 @@ export default function DataGridBar(props: DataGridBarProps) {
           handleChange={handleSetTableRange}
         />
       )}
-    </Stack>
+    </div>
   );
 }

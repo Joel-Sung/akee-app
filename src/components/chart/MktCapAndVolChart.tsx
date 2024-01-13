@@ -7,7 +7,6 @@ import {
   formatDateTimeAxisLabel,
   msArrayToDateTimeStringArray,
 } from "../../utils/datetime";
-import { spacingMedium } from "../../utils/format";
 import type { BarButtonType } from "../bar/SelectionBar";
 import { SelectionBar } from "../bar/SelectionBar";
 import {
@@ -89,11 +88,12 @@ export default function MktCapAndVolChart(props: MktCapAndVolChartProps) {
     <ComponentContainer>
       <ComponentHeader>
         <Typography variant={headerVariant}>Market Cap & Volume</Typography>
-        <Stack direction="row" spacing={spacingMedium}>
+        <Stack className="flex flex-col xl:flex-row">
           <SelectionBar
             currSelection={currChart}
             selections={chartTypeButtons}
             handleChange={(value) => setCurrChart(value)}
+            className="mb-[2vh] xl:mb-0 xl:mr-[2vw]"
           />
           <SelectionBar
             currSelection={chartRange}

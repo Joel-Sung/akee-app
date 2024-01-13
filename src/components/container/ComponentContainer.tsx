@@ -1,6 +1,10 @@
 import { Box, Paper, Stack } from "@mui/material";
 import type { ReactNode } from "react";
-import { paddingSmall, paperElevation, spacingMedium } from "../../utils/format";
+import {
+  paddingSmall,
+  paperElevation,
+  spacingMedium,
+} from "../../utils/format";
 
 const componentSpacing = spacingMedium;
 
@@ -10,115 +14,69 @@ interface ComponentProps {
 }
 
 export function ComponentContainer(props: ComponentProps) {
-  const {
-    children
-  } = props;
+  const { children } = props;
 
   return (
     <Paper
       elevation={paperElevation}
-      sx={{ 
+      sx={{
         padding: paddingSmall,
       }}
     >
-      <Stack spacing={componentSpacing}>
-        {children}
-      </Stack>
+      <Stack spacing={componentSpacing}>{children}</Stack>
     </Paper>
-  )
+  );
 }
 
 export const headerVariant = "h5";
 
 export function ComponentHeader(props: ComponentProps) {
-  const {
-    children
-  } = props;
+  const { children } = props;
 
   return (
-    <Stack 
-      direction='row' 
-      justifyContent='space-between'
-      alignItems='center'
-      height={30}
-    >
+    <Stack className="flex flex-col xl:flex-row xl:justify-between">
       {children}
     </Stack>
-  )
+  );
 }
 
 export function ComponentInfo(props: ComponentProps) {
-  const {
-    children
-  } = props;
+  const { children } = props;
 
   return (
-    <Stack 
-      direction='row' 
-      spacing={spacingMedium}
-      height={25}
-    >
+    <Stack direction="row" spacing={spacingMedium}>
       {children}
     </Stack>
-  )
+  );
 }
 
 export function ComponentChart(props: ComponentProps) {
-  const {
-    children
-  } = props;
+  const { children } = props;
 
-  return (
-    <Box 
-      height={300}
-    >
-      {children}
-    </Box>
-  )
+  return <Box height={300}>{children}</Box>;
 }
 
 export function ComponentBar(props: ComponentProps) {
-  const {
-    children
-  } = props;
+  const { children } = props;
 
   return (
-    <Box 
-      height={50}
-      width='100%'
-      alignItems='center'
-    >
+    <Box height={50} width="100%" alignItems="center">
       {children}
     </Box>
-  )
+  );
 }
 
 export function ComponentMeter(props: ComponentProps) {
-  const {
-    children
-  } = props;
+  const { children } = props;
 
-  return (
-    <Box 
-      height={100}
-    >
-      {children}
-    </Box>
-  )
+  return <Box height={100}>{children}</Box>;
 }
 
-interface ComponentListProps extends ComponentProps{
+interface ComponentListProps extends ComponentProps {
   height: number;
 }
 export function ComponentList(props: ComponentListProps) {
-  const {
-    height,
-    children
-  } = props;
+  const { height, children } = props;
 
-  return (
-    <Box sx={{height: height, overflow: 'auto'}}>
-      {children}
-    </Box>
-  )
+  return <Box sx={{ height: height, overflow: "auto" }}>{children}</Box>;
 }
