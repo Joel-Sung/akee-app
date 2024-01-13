@@ -1,7 +1,7 @@
 import { Divider, Stack, Typography } from "@mui/material";
 import type { TimeRange } from "../../types/collectionTypes/collectionTypes";
 import { spacingMedium } from "../../utils/format";
-import type { BarButtonType} from "../bar/SelectionBar";
+import type { BarButtonType } from "../bar/SelectionBar";
 import { SelectionBar } from "../bar/SelectionBar";
 import { TextButton } from "../util/Button";
 import type { menuItem } from "../util/DropDown";
@@ -43,52 +43,44 @@ export default function DataGridBar(props: DataGridBarProps) {
   } = props;
 
   return (
-    <Stack direction='row' justifyContent='space-between'>
+    <Stack direction="row" justifyContent="space-between">
+      <Stack direction="row" spacing={spacingMedium}>
+        {showRowCount && rowCount && rowCounts && setRowCount && (
+          <Stack direction="row" alignItems="center" spacing={spacingMedium}>
+            <Typography>Show Rows: </Typography>
+            <DropDown
+              currValue={rowCount}
+              menuItems={rowCounts}
+              handleChange={setRowCount}
+            />
+          </Stack>
+        )}
 
-        <Stack direction='row' spacing={spacingMedium}>
+        <Divider />
 
-          {showRowCount &&
-            rowCount && rowCounts && setRowCount &&
-            <Stack direction='row' alignItems='center' spacing={spacingMedium}>
-              <Typography>Show Rows: </Typography>
-              <DropDown
-                currValue={rowCount}
-                menuItems={rowCounts}
-                handleChange={setRowCount}
-              />
-            </Stack>
-          }
+        {showPage && page && handleIncPage && handleDecPage && (
+          <Stack direction="row" alignItems="center">
+            <Typography>Page: </Typography>
+            <Incrementer
+              currValue={page}
+              handleInc={handleIncPage}
+              handleDec={handleDecPage}
+            />
+          </Stack>
+        )}
 
-          <Divider />
-          
-          {showPage &&
-            page && handleIncPage && handleDecPage &&
-            <Stack direction='row' alignItems='center'>
-              <Typography>Page: </Typography>
-              <Incrementer
-                currValue={page}
-                handleInc={handleIncPage}
-                handleDec={handleDecPage}
-              />
-            </Stack>
-          }
-
-          {showExpand &&
-            expandRows &&
-            <TextButton onClick={expandRows}>Expand Rows</TextButton>
-          }
-
-        </Stack>
-
-        {showRange &&
-          tableRange && rangeSelections && handleSetTableRange &&
-          <SelectionBar
-            currSelection={tableRange}
-            selections={rangeSelections}
-            handleChange={handleSetTableRange}
-          />
-        }
-
+        {showExpand && expandRows && (
+          <TextButton onClick={expandRows}>Expand Rows</TextButton>
+        )}
       </Stack>
-  )
+
+      {showRange && tableRange && rangeSelections && handleSetTableRange && (
+        <SelectionBar
+          currSelection={tableRange}
+          selections={rangeSelections}
+          handleChange={handleSetTableRange}
+        />
+      )}
+    </Stack>
+  );
 }

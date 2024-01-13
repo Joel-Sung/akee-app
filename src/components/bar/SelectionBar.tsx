@@ -5,7 +5,7 @@ import { BackgroundButton, TextButton } from "../util/Button";
 export type BarButtonType<T> = {
   value: T;
   text: string;
-}
+};
 
 interface SelectionBarProps<T> {
   currSelection: T;
@@ -24,40 +24,36 @@ export function SelectionBar<T>(props: SelectionBarProps<T>) {
     light = false,
     useTextButton = false,
   } = props;
-  
+
   return (
-    <Paper 
-      elevation={light ? 0 : paperElevation} 
+    <Paper
+      elevation={light ? 0 : paperElevation}
       className="flex justify-items-center"
       sx={{ padding: paddingVerySmall }}
     >
       <Stack direction="row" spacing={spacing}>
         {selections.map((button, index) => {
-            return (
-              <>
-                {useTextButton 
-                  ? 
-                    <TextButton
-                      onClick={() => handleChange(button.value)}
-                      isClicked={button.value === currSelection}
-                      key={index}
-                    >
-                      {button.text}
-                    </TextButton>
-                : 
-                  <BackgroundButton
-                    onClick={() => handleChange(button.value)}
-                    isClicked={button.value === currSelection}
-                    key={index}
-                  >
-                    {button.text}
-                  </BackgroundButton>
-                }
-              </>
-            )
-          })
-        }
+          return (
+            <span key={index}>
+              {useTextButton ? (
+                <TextButton
+                  onClick={() => handleChange(button.value)}
+                  isClicked={button.value === currSelection}
+                >
+                  {button.text}
+                </TextButton>
+              ) : (
+                <BackgroundButton
+                  onClick={() => handleChange(button.value)}
+                  isClicked={button.value === currSelection}
+                >
+                  {button.text}
+                </BackgroundButton>
+              )}
+            </span>
+          );
+        })}
       </Stack>
     </Paper>
-  )
+  );
 }
